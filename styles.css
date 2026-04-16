@@ -32,9 +32,8 @@ html {
     scroll-margin-top: 72px;
 }
 
-/* Gold glow border when jumped to via nav
-   All targetable sections are full-viewport-width, so the border is consistent.
-   We use an inset box-shadow instead of outline to avoid overflow/clipping issues. */
+
+/* Gold glow border when jumped to via nav */
 @keyframes section-glow {
     0% {
         box-shadow:
@@ -148,7 +147,9 @@ h2 {
     font-size: 32px;
     margin-bottom: 28px;
     padding-bottom: 12px;
-    border-bottom: 3px solid var(--color-accent);
+    border-bottom: 5px solid var(--color-accent);
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
     color: var(--color-primary);
 }
 

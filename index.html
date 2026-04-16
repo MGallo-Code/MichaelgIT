@@ -80,7 +80,7 @@
                 <div class="work-card">
                     <h3>stephenshanabrook.com</h3>
                     <p>Built a professional website for a local client's business.</p>
-                    <a href="https://stephenshanabrook.com" target="_blank" rel="noopener">Visit Site</a>
+                    <a href="https://stephenshanabrook.com" target="_blank" rel="noopener" class="visit-btn">Visit Site</a>
                 </div>
                 <div class="work-card">
                     <h3>Full Computer Transition</h3>
@@ -99,6 +99,53 @@
             <a href="mailto:michael@gallocoding.com" class="email-link">michael@gallocoding.com</a>
         </section>
     </main>
+
+    <script>
+    (function() {
+        if (window.matchMedia('(hover: none)').matches) return;
+
+        const contact = document.getElementById('contact');
+        const emailBtn = contact.querySelector('.email-link');
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        cursor.textContent = '\u279C';
+        document.body.appendChild(cursor);
+
+        let inContact = false;
+        let overBtn = false;
+
+        contact.addEventListener('mouseenter', () => { inContact = true; });
+        contact.addEventListener('mouseleave', () => {
+            inContact = false;
+            cursor.style.opacity = '0';
+        });
+
+        contact.addEventListener('mousemove', (e) => {
+            if (!inContact) return;
+
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursor.style.opacity = overBtn ? '0' : '1';
+
+            if (!overBtn) {
+                const btnRect = emailBtn.getBoundingClientRect();
+                const btnX = btnRect.left + btnRect.width / 2;
+                const btnY = btnRect.top + btnRect.height / 2;
+                const angle = Math.atan2(btnY - e.clientY, btnX - e.clientX) * (180 / Math.PI);
+                cursor.style.transform = 'translate(-50%, -50%) rotate(' + angle + 'deg)';
+            }
+        });
+
+        emailBtn.addEventListener('mouseenter', () => {
+            overBtn = true;
+            cursor.style.opacity = '0';
+        });
+        emailBtn.addEventListener('mouseleave', () => {
+            overBtn = false;
+            cursor.style.opacity = '1';
+        });
+    })();
+    </script>
 
     <footer>
         <p>&copy; 2026 MichaelG<span class="brand-accent">IT</span>. All rights reserved.</p>

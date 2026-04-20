@@ -46,7 +46,7 @@ step "Your connection info"
 LAN_IP=$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null || echo "Could not detect")
 HOSTNAME=$(hostname)
 USERNAME=$(logname 2>/dev/null || echo "$SUDO_USER")
-OS_VERSION=$(sw_vers -productName 2>/dev/null) $(sw_vers -productVersion 2>/dev/null)
+OS_VERSION="$(sw_vers -productName 2>/dev/null) $(sw_vers -productVersion 2>/dev/null)"
 
 echo ""
 echo -e "${YELLOW}========================================"

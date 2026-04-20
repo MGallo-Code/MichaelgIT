@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Remote Setup - MichaelGIT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #1a1a1a;
+            --color-text-light: #4a4a4a;
+            --color-primary: #2c5f3f;
+            --color-primary-light: #3a7d52;
+            --color-accent: #c8a96e;
+            --color-card-bg: #e2e7e0;
+            --font-body: 'Georgia', 'Times New Roman', serif;
+            --font-heading: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background: var(--color-bg);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .brand {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .brand-accent { color: var(--color-primary); }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .step {
+            background: var(--color-card-bg);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+
+        .step h2 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-number {
+            background: var(--color-primary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .step p {
+            color: var(--color-text-light);
+            margin-bottom: 16px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+
+        .download-btn:hover {
+            background: var(--color-primary-light);
+        }
+
+        .download-btn + .download-btn {
+            margin-left: 12px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .instructions {
+            background: #f8f8f6;
+            border-left: 3px solid var(--color-accent);
+            padding: 16px 20px;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .instructions strong { display: block; margin-bottom: 4px; }
+
+        .help {
+            margin-top: 40px;
+            padding: 24px;
+            text-align: center;
+            color: var(--color-text-light);
+        }
+
+        .help a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand">MichaelG<span class="brand-accent">IT</span></div>
+
+        <h1>Remote Setup</h1>
+        <p class="subtitle">This will let me connect to your computer remotely so I can help you. It only takes a minute.</p>
+
+        <div class="step">
+            <h2><span class="step-number">1</span> Download the setup file for your computer</h2>
+            <p>Click the button that matches your computer type:</p>
+            <div class="buttons">
+                <a href="setup-remote.ps1" download class="download-btn">Windows</a>
+                <a href="setup-remote.sh" download class="download-btn">Mac</a>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">2</span> Run the file</h2>
+
+            <div class="instructions">
+                <strong>Windows:</strong>
+                Right-click the downloaded file and select "Run with PowerShell."
+                If asked, click "Run as Administrator" and allow changes.
+            </div>
+
+            <div class="instructions" style="margin-top: 12px;">
+                <strong>Mac:</strong>
+                Open Terminal (search for "Terminal" in Spotlight).
+                Type: <code>sudo bash ~/Downloads/setup-remote.sh</code> and press Enter.
+                Enter your password when asked.
+            </div>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">3</span> Read me the info on screen</h2>
+            <p>The script will show your IP address, username, and computer name. Just text or read those to me and I'll take it from there!</p>
+        </div>
+
+        <div class="help">
+            <p>Questions? Email me at <a href="mailto:michael@gallocoding.com">michael@gallocoding.com</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -91,32 +91,64 @@
             margin-bottom: 16px;
         }
 
-        .download-btn {
-            display: inline-block;
-            background: var(--color-primary);
-            color: white;
-            padding: 14px 32px;
-            border-radius: 8px;
-            text-decoration: none;
+        .tab-group {
+            display: flex;
+            gap: 0;
+            margin-bottom: 0;
+        }
+
+        .tab {
+            padding: 10px 24px;
             font-family: var(--font-heading);
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
+            border: none;
+            background: transparent;
+            color: var(--color-text-light);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .command-box {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin-top: 12px;
+            position: relative;
+            word-break: break-all;
+            line-height: 1.6;
+            user-select: all;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
             transition: background 0.2s;
         }
 
-        .download-btn:hover {
-            background: var(--color-primary-light);
-        }
-
-        .download-btn + .download-btn {
-            margin-left: 12px;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+        .copy-btn:hover { background: var(--color-primary-light); }
 
         .instructions {
             background: #f8f8f6;
@@ -151,28 +183,44 @@
         <p class="subtitle">This will let me connect to your computer remotely so I can help you. It only takes a minute.</p>
 
         <div class="step">
-            <h2><span class="step-number">1</span> Download the setup file for your computer</h2>
-            <p>Click the button that matches your computer type:</p>
-            <div class="buttons">
-                <a href="setup-remote.ps1" download class="download-btn">Windows</a>
-                <a href="setup-remote.sh" download class="download-btn">Mac</a>
+            <h2><span class="step-number">1</span> Open a terminal as Administrator</h2>
+
+            <div class="tab-group">
+                <button class="tab active" onclick="switchTab('open', 'windows')">Windows</button>
+                <button class="tab" onclick="switchTab('open', 'mac')">Mac</button>
+            </div>
+
+            <div id="open-windows" class="tab-content active">
+                <div class="instructions">
+                    Right-click the Start button and select <strong>PowerShell (Admin)</strong> or <strong>Terminal (Admin)</strong>. Click "Yes" if asked to allow changes.
+                </div>
+            </div>
+
+            <div id="open-mac" class="tab-content">
+                <div class="instructions">
+                    Open <strong>Terminal</strong> (search for "Terminal" in Spotlight).
+                </div>
             </div>
         </div>
 
         <div class="step">
-            <h2><span class="step-number">2</span> Run the file</h2>
+            <h2><span class="step-number">2</span> Paste this command and press Enter</h2>
 
-            <div class="instructions">
-                <strong>Windows:</strong>
-                Right-click the downloaded file and select "Run with PowerShell."
-                If asked, click "Run as Administrator" and allow changes.
+            <div class="tab-group">
+                <button class="tab active" onclick="switchTab('cmd', 'windows')">Windows</button>
+                <button class="tab" onclick="switchTab('cmd', 'mac')">Mac</button>
             </div>
 
-            <div class="instructions" style="margin-top: 12px;">
-                <strong>Mac:</strong>
-                Open Terminal (search for "Terminal" in Spotlight).
-                Type: <code>sudo bash ~/Downloads/setup-remote.sh</code> and press Enter.
-                Enter your password when asked.
+            <div id="cmd-windows" class="tab-content active">
+                <div class="command-box" id="cmd-win-text">irm michaelgit.com/setup/setup-remote.ps1 | iex<button class="copy-btn" onclick="copyCommand('cmd-win-text')">Copy</button></div>
+            </div>
+
+            <div id="cmd-mac" class="tab-content">
+                <div class="command-box" id="cmd-mac-text">curl -sL michaelgit.com/setup/setup-remote.sh | sudo bash<button class="copy-btn" onclick="copyCommand('cmd-mac-text')">Copy</button></div>
+            </div>
+
+            <div class="instructions" style="margin-top: 16px;">
+                This may take a minute or two. You'll see green checkmarks as each step completes.
             </div>
         </div>
 
@@ -185,5 +233,39 @@
             <p>Questions? Email me at <a href="mailto:michael@gallocoding.com">michael@gallocoding.com</a></p>
         </div>
     </div>
+    <script>
+        function switchTab(group, os) {
+            document.querySelectorAll('[id^="' + group + '-"]').forEach(el => el.classList.remove('active'));
+            document.getElementById(group + '-' + os).classList.add('active');
+
+            const tabGroup = document.getElementById(group + '-' + os).previousElementSibling;
+            let container = document.getElementById(group + '-' + os).parentElement;
+            container.querySelectorAll('.tab-group .tab').forEach((tab, i) => {
+                tab.classList.toggle('active', (os === 'windows' && i === 0) || (os === 'mac' && i === 1));
+            });
+
+            // Sync all tab groups to the same OS
+            document.querySelectorAll('.tab-group').forEach(tg => {
+                const tabs = tg.querySelectorAll('.tab');
+                tabs.forEach((tab, i) => {
+                    tab.classList.toggle('active', (os === 'windows' && i === 0) || (os === 'mac' && i === 1));
+                });
+                const parent = tg.parentElement;
+                parent.querySelectorAll('.tab-content').forEach(tc => {
+                    tc.classList.toggle('active', tc.id.endsWith('-' + os));
+                });
+            });
+        }
+
+        function copyCommand(id) {
+            const el = document.getElementById(id);
+            const text = el.childNodes[0].textContent.trim();
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = el.querySelector('.copy-btn');
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 2000);
+            });
+        }
+    </script>
 </body>
 </html>

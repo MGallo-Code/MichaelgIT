@@ -64,9 +64,3 @@ echo ""
 ok "Remote access is ready!"
 echo "Your technician can now connect to help you."
 echo ""
-
-# ── Self-destruct ────────────────────────────────────────────────────
-SCRIPT_PATH="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
-rm -f "$SCRIPT_PATH" 2>/dev/null
-echo "(This setup script has been cleaned up automatically.)"
-echo ""

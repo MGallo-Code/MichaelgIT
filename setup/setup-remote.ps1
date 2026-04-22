@@ -33,8 +33,13 @@ if ($sshServer.State -eq "Installed") {
     Write-Ok "SSH server already installed"
 }
 else {
-    Write-Host "Installing SSH server..."
-    Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0 | Out-Null
+    Write-Host "Installing SSH server (this may take a few minutes)..."
+    $ProgressPreference = 'SilentlyContinue'
+    $result = Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+    $ProgressPreference = 'Continue'
+    if ($result.RestartNeeded) {
+        Write-Host "[note] A restart may be needed to finish setup." -ForegroundColor Yellow
+    }
     Write-Ok "SSH server installed"
 }
 
@@ -52,12 +57,12 @@ Write-Ok "PowerShell set as default SSH shell"
 # ── Firewall ─────────────────────────────────────────────────────────
 Write-Step "Configuring firewall"
 
-$rule = Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue
-if ($rule) {
+$existing = netsh advfirewall firewall show rule name="OpenSSH-Server-In-TCP" 2>$null
+if ($existing -match "OpenSSH-Server-In-TCP") {
     Write-Ok "SSH firewall rule already exists"
 }
 else {
-    New-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -DisplayName "OpenSSH Server (sshd)" -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22 | Out-Null
+    netsh advfirewall firewall add rule name="OpenSSH-Server-In-TCP" dir=in action=allow protocol=TCP localport=22 | Out-Null
     Write-Ok "SSH firewall rule created (port 22)"
 }
 
@@ -86,14 +91,8 @@ Write-Ok "Remote access is ready!"
 Write-Host "Your technician can now connect to help you."
 Write-Host ""
 
-# ── Self-destruct ────────────────────────────────────────────────────
-$scriptPath = $MyInvocation.MyCommand.Path
-if ($scriptPath) {
-    # Schedule deletion after script exits (can't delete while running)
-    $deleteCmd = "Start-Sleep -Seconds 2; Remove-Item -Path '$scriptPath' -Force"
-    Start-Process powershell -ArgumentList "-WindowStyle Hidden -Command $deleteCmd" -WindowStyle Hidden
-    Write-Host "(This setup script will clean itself up automatically.)" -ForegroundColor DarkGray
+# ── Pause if run from a file (not piped) ────────────────────────────
+if ($MyInvocation.MyCommand.Path) {
+    Write-Host ""
+    Read-Host "Press Enter to close this window"
 }
-
-Write-Host ""
-Read-Host "Press Enter to close this window"

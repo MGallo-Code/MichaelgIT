@@ -208,6 +208,28 @@ nav {
     width: 18px;
     height: 18px;
     display: block;
+    flex-shrink: 0;
+}
+
+.qa-label {
+    display: none;
+    margin-left: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: inherit;
+    white-space: nowrap;
+}
+
+@media (min-width: 900px) {
+    .qa-label {
+        display: inline;
+    }
+    .quick-access {
+        gap: 24px;
+    }
 }
 
 .qa-brand {
@@ -286,7 +308,15 @@ section {
 .hero {
     max-width: none;
     padding: 0;
-    background: linear-gradient(to bottom, var(--color-primary-dark) 0%, #0d1f15 100%);
+    background:
+        linear-gradient(
+            180deg,
+            rgba(13, 31, 21, 0.35) 0%,
+            rgba(13, 31, 21, 0.65) 55%,
+            rgba(13, 31, 21, 0.88) 100%
+        ),
+        url('hero-stars.jpg') center top / cover no-repeat,
+        var(--color-primary-dark);
     color: #ffffff;
     position: relative;
     overflow: hidden;
@@ -344,6 +374,90 @@ section {
 .term-title {
     margin-left: 10px;
     color: rgba(195, 232, 141, 0.85);
+}
+
+/* Theme toggle in terminal titlebar */
+.term-theme-toggle {
+    margin-left: auto;
+    background: transparent;
+    border: 0;
+    padding: 4px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.55);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: color 0.15s, background-color 0.15s;
+}
+
+.term-theme-toggle:hover,
+.term-theme-toggle:focus-visible {
+    color: var(--color-accent-light);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.theme-icon {
+    width: 15px;
+    height: 15px;
+    display: block;
+}
+
+.theme-icon-moon { display: none; }
+
+.term-card.is-light .theme-icon-sun { display: none; }
+.term-card.is-light .theme-icon-moon { display: block; }
+
+/* Light mode terminal */
+.term-card.is-light {
+    background: #faf6ec;
+    border-color: rgba(120, 95, 60, 0.28);
+    box-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.04),
+        0 8px 24px rgba(80, 60, 30, 0.14);
+}
+
+.term-card.is-light .term-titlebar {
+    background: rgba(120, 95, 60, 0.08);
+    border-bottom-color: rgba(120, 95, 60, 0.18);
+    color: rgba(40, 30, 20, 0.6);
+}
+
+.term-card.is-light .term-title {
+    color: #5a4a30;
+}
+
+.term-card.is-light .term-theme-toggle {
+    color: rgba(40, 30, 20, 0.55);
+}
+
+.term-card.is-light .term-theme-toggle:hover,
+.term-card.is-light .term-theme-toggle:focus-visible {
+    color: var(--color-primary-dark);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.term-card.is-light .term-body {
+    color: rgba(30, 26, 20, 0.85);
+}
+
+.term-card.is-light .term-prompt-user { color: #2154a0; }
+.term-card.is-light .term-prompt-host { color: rgba(40, 30, 20, 0.5); }
+.term-card.is-light .term-prompt-path { color: #2c5f3f; }
+
+.term-card.is-light .tw-cmd {
+    color: #1a1a17;
+    border-right-color: #2c5f3f;
+}
+
+.term-card.is-light .tw-strong { color: #2c5f3f; }
+.term-card.is-light .tw-sub { color: rgba(40, 30, 20, 0.7); }
+.term-card.is-light .tw-stack-key { color: #2154a0; }
+.term-card.is-light .tw-loc { color: #b87a14; }
+.term-card.is-light .tw-status { color: #7a3aa0; }
+
+.term-card.is-light .tw-cursor {
+    background: #2c5f3f;
 }
 
 .term-body {
@@ -725,39 +839,56 @@ section {
 }
 
 .project-card {
-    background-color: #fffdf7;
+    background-color: #0d1612;
     padding: 28px;
-    border-radius: 3px;
-    border: 1px solid rgba(120, 95, 60, 0.14);
+    border-radius: 6px;
+    border: 1px solid rgba(82, 183, 136, 0.18);
     border-top: 3px solid var(--color-primary-light);
+    color: rgba(255, 255, 255, 0.82);
     box-shadow:
-        0 1px 1px rgba(0, 0, 0, 0.03),
-        0 4px 10px rgba(80, 60, 30, 0.06);
-    transition: box-shadow 0.2s, transform 0.15s;
+        0 1px 1px rgba(0, 0, 0, 0.04),
+        0 6px 18px rgba(60, 45, 20, 0.12);
+    transition: box-shadow 0.2s, transform 0.15s, border-color 0.2s;
 }
 
 .project-card:hover {
     box-shadow:
         0 1px 1px rgba(0, 0, 0, 0.04),
-        0 8px 22px rgba(80, 60, 30, 0.14);
+        0 12px 30px rgba(82, 183, 136, 0.18);
+    border-color: rgba(82, 183, 136, 0.45);
     transform: translateY(-2px);
 }
 
+.project-card h3 {
+    color: #ffffff;
+}
+
+.project-card p {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.project-card strong {
+    color: var(--color-primary-glow);
+    font-weight: 600;
+}
+
 .project-featured {
-    background: #fffdf7;
+    background: #0d1612;
     border: 1px solid var(--color-accent);
     border-top: 4px solid var(--color-accent);
     margin-bottom: 28px;
     padding: 32px;
+    color: rgba(255, 255, 255, 0.85);
     box-shadow:
-        0 1px 1px rgba(0, 0, 0, 0.03),
-        0 4px 10px rgba(80, 60, 30, 0.06);
+        0 1px 1px rgba(0, 0, 0, 0.05),
+        0 8px 22px rgba(60, 45, 20, 0.18);
 }
 
 .project-featured:hover {
     box-shadow:
-        0 1px 1px rgba(0, 0, 0, 0.04),
-        0 8px 22px rgba(80, 60, 30, 0.14);
+        0 1px 1px rgba(0, 0, 0, 0.05),
+        0 14px 36px rgba(200, 169, 110, 0.22);
+    border-color: var(--color-accent-light);
     transform: translateY(-2px);
 }
 
@@ -789,13 +920,14 @@ section {
     margin-bottom: 12px;
     font-family: var(--font-mono);
     font-size: 13px;
-    color: var(--color-text-muted);
+    color: rgba(255, 255, 255, 0.55);
 }
 
 .project-tech code {
-    background-color: rgba(120, 95, 60, 0.08);
-    color: var(--color-primary-dark);
-    padding: 2px 8px;
+    background-color: rgba(82, 183, 136, 0.12);
+    color: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(82, 183, 136, 0.22);
+    padding: 1px 8px;
     border-radius: 3px;
     margin-right: 4px;
     font-family: var(--font-mono);
@@ -804,12 +936,13 @@ section {
 }
 
 .project-card p {
-    color: var(--color-text-light);
+    color: rgba(255, 255, 255, 0.78);
     margin-bottom: 12px;
 }
 
 .project-card strong {
-    color: var(--color-primary-dark);
+    color: var(--color-primary-glow);
+    font-weight: 600;
 }
 
 .project-link {
@@ -818,13 +951,13 @@ section {
     font-family: var(--font-heading);
     font-size: 14px;
     font-weight: 600;
-    color: var(--color-primary);
+    color: var(--color-primary-glow);
     text-decoration: none;
     transition: color 0.15s, transform 0.15s;
 }
 
 .project-link:hover {
-    color: var(--color-primary-light);
+    color: #ffffff;
     transform: translateX(2px);
 }
 
@@ -1055,6 +1188,10 @@ a:focus-visible,
 
     .nav-toggle {
         display: flex;
+    }
+
+    .quick-access {
+        display: none;
     }
 
     .nav-links {

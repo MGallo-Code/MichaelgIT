@@ -114,9 +114,9 @@
                 <div class="mw-titlebar">
                     <span class="mw-title">computers.md — Notepad</span>
                     <span class="mw-controls">
-                        <span class="ctrl" aria-hidden="true">&#x2013;</span>
-                        <span class="ctrl" aria-hidden="true">&#x25A1;</span>
-                        <span class="ctrl close" aria-hidden="true">&#x2715;</span>
+                        <span class="ctrl minimize" aria-label="Minimize">&#x2013;</span>
+                        <span class="ctrl maximize" aria-label="Maximize">&#x25A1;</span>
+                        <span class="ctrl close" aria-label="Close">&#x2715;</span>
                     </span>
                 </div>
                 <div class="mw-body service-body">
@@ -141,7 +141,10 @@
             <div class="mac-window nix-window">
                 <div class="mw-titlebar">
                     <span class="mw-title">websites.md</span>
-                    <span class="mw-x" aria-hidden="true">&#x2715;</span>
+                    <span class="mw-controls-nix">
+                        <span class="mw-min" aria-label="Minimize">&#x2013;</span>
+                        <span class="mw-x" aria-label="Close">&#x2715;</span>
+                    </span>
                 </div>
                 <div class="mw-body service-body">
                     <div class="svc-num">03 / Websites</div>
@@ -259,49 +262,169 @@
     update();
 })();
 
-// Functioning dock for the three service windows. Click × on a window to
-// close it (animates + hides). Click the matching dock app to reopen.
+// Lock the services grid height once the page has laid out, so the dock
+// below it doesn't jump when windows are minimized/closed/restored.
+// Recalculated on resize.
+(function() {
+    var grid = document.querySelector('.services-grid');
+    if (!grid) return;
+    function lock() {
+        // Strip any previously-locked height before measuring
+        grid.style.minHeight = '';
+        // requestAnimationFrame so the browser uses the unlocked height
+        requestAnimationFrame(function() {
+            grid.style.minHeight = grid.getBoundingClientRect().height + 'px';
+        });
+    }
+    if (document.readyState === 'complete') lock();
+    else window.addEventListener('load', lock);
+    var raf = 0;
+    window.addEventListener('resize', function() {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(lock);
+    }, { passive: true });
+})();
+
+// Functioning dock for the three service windows.
+//   Close (red dot / Windows ✕ / Linux ✕): instant fade out
+//   Minimize (yellow dot / Windows – / Linux –): genie warp into the dock
+//   Click a dock app: genie warp back from the dock
+// In all three cases, the remaining windows slide smoothly to their new
+// grid positions via a FLIP animation (record positions, snap to old via
+// transform, transition back to identity).
 (function() {
     var windows = Array.prototype.slice.call(document.querySelectorAll('.services .mac-window'));
     var apps = Array.prototype.slice.call(document.querySelectorAll('.dock-app'));
     if (!windows.length || windows.length !== apps.length) return;
 
+    var MIN_MS = 500;
+    var CLOSE_MS = 180;
+    var OPEN_MS = 420;
+    var FLIP_MS = 420;
+    var FLIP_EASE = 'cubic-bezier(0.2, 0.85, 0.35, 1)';
+
+    function setMinimizeTarget(win, app) {
+        var wr = win.getBoundingClientRect();
+        var ar = app.getBoundingClientRect();
+        var winCx = wr.left + wr.width / 2;
+        var winCy = wr.top + wr.height / 2;
+        var appCx = ar.left + ar.width / 2;
+        var appCy = ar.top + ar.height / 2;
+        win.style.setProperty('--mdx', (appCx - winCx) + 'px');
+        win.style.setProperty('--mdy', (appCy - winCy) + 'px');
+        var moxPct = ((appCx - wr.left) / wr.width) * 100;
+        moxPct = Math.max(0, Math.min(100, moxPct));
+        win.style.setProperty('--mox', moxPct + '%');
+    }
+
+    // FLIP: capture positions of `siblings` before a layout change, then
+    // call `mutate()`, then animate each sibling from its old → new position.
+    function flipSiblings(siblings, mutate) {
+        var firsts = siblings.map(function(s) {
+            return s.getBoundingClientRect();
+        });
+        mutate();
+        siblings.forEach(function(s, i) {
+            var last = s.getBoundingClientRect();
+            var dx = firsts[i].left - last.left;
+            var dy = firsts[i].top - last.top;
+            if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+            // Invert + play
+            s.style.transition = 'none';
+            s.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+            // Two RAFs to ensure the browser paints the inverted state first
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    s.style.transition = 'transform ' + FLIP_MS + 'ms ' + FLIP_EASE;
+                    s.style.transform = '';
+                });
+            });
+            setTimeout(function() {
+                s.style.transition = '';
+                s.style.transform = '';
+            }, FLIP_MS + 50);
+        });
+    }
+
+    function visibleSiblings(except) {
+        return windows.filter(function(w) {
+            return w !== except && !w.classList.contains('is-hidden');
+        });
+    }
+
+    function close(win, app) {
+        if (app.classList.contains('is-open') === false) return;
+        win.classList.add('is-closing-fast');
+        app.classList.remove('is-open');
+        setTimeout(function() {
+            flipSiblings(visibleSiblings(win), function() {
+                win.classList.add('is-hidden');
+                win.classList.remove('is-closing-fast');
+            });
+        }, CLOSE_MS);
+    }
+
+    function minimize(win, app) {
+        if (app.classList.contains('is-open') === false) return;
+        setMinimizeTarget(win, app);
+        win.classList.add('is-minimizing');
+        app.classList.remove('is-open');
+        setTimeout(function() {
+            flipSiblings(visibleSiblings(win), function() {
+                win.classList.add('is-hidden');
+                win.classList.remove('is-minimizing');
+            });
+        }, MIN_MS);
+    }
+
+    function restore(win, app) {
+        if (app.classList.contains('is-open')) {
+            win.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+        // Sibling positions before window re-enters layout
+        flipSiblings(visibleSiblings(win), function() {
+            win.classList.remove('is-hidden');
+        });
+        // Wait one frame so layout is settled, then measure + run genie open
+        requestAnimationFrame(function() {
+            setMinimizeTarget(win, app);
+            win.classList.add('is-opening');
+            app.classList.add('is-open');
+            setTimeout(function() { win.classList.remove('is-opening'); }, OPEN_MS);
+        });
+    }
+
     windows.forEach(function(win, i) {
         var app = apps[i];
-        // initial: window is open
         app.classList.add('is-open');
 
-        // Find the OS-specific "close" button: red Mac dot, ✕ on Windows, × on Linux
-        var closeBtn = win.querySelector('.win-window .ctrl.close')
-            || win.querySelector('.nix-window .mw-x')
-            || win.querySelector(':scope > .mw-titlebar .mw-dot.dr')
-            || win.querySelector('.mw-dot.dr');
-
-        if (closeBtn) {
-            closeBtn.style.cursor = 'pointer';
-            closeBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (!app.classList.contains('is-open')) return;
-                win.classList.add('is-closing');
-                app.classList.remove('is-open');
-                setTimeout(function() {
-                    win.classList.add('is-hidden');
-                    win.classList.remove('is-closing');
-                }, 280);
-            });
+        var closeBtn, minBtn;
+        if (win.classList.contains('win-window')) {
+            closeBtn = win.querySelector('.ctrl.close');
+            minBtn = win.querySelector('.ctrl.minimize');
+        } else if (win.classList.contains('nix-window')) {
+            closeBtn = win.querySelector('.mw-x');
+            minBtn = win.querySelector('.mw-min');
+        } else {
+            closeBtn = win.querySelector('.mw-dot.dr');
+            minBtn = win.querySelector('.mw-dot.dy');
         }
 
-        app.addEventListener('click', function() {
-            if (app.classList.contains('is-open')) {
-                win.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                return;
-            }
-            win.classList.remove('is-hidden');
-            requestAnimationFrame(function() {
-                win.classList.add('is-opening');
-                app.classList.add('is-open');
-                setTimeout(function() { win.classList.remove('is-opening'); }, 360);
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                close(win, app);
             });
+        }
+        if (minBtn) {
+            minBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                minimize(win, app);
+            });
+        }
+        app.addEventListener('click', function() {
+            restore(win, app);
         });
     });
 })();

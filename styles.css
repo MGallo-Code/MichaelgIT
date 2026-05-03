@@ -163,7 +163,7 @@ h3 {
     max-width: none;
     padding: 0;
     position: relative;
-    background: url('hero.jpeg') center top / cover no-repeat;
+    background: url('hero-stars.jpg') center 30% / cover no-repeat;
     min-height: 480px;
     display: flex;
     align-items: center;
@@ -175,10 +175,10 @@ h3 {
     inset: 0;
     background: linear-gradient(
         to right,
-        rgba(30, 69, 48, 0.88) 0%,
-        rgba(30, 69, 48, 0.75) 40%,
-        rgba(30, 69, 48, 0.3) 70%,
-        transparent 100%
+        rgba(15, 35, 25, 0.88) 0%,
+        rgba(15, 35, 25, 0.75) 40%,
+        rgba(15, 35, 25, 0.4) 70%,
+        rgba(15, 35, 25, 0.2) 100%
     );
 }
 

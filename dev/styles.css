@@ -1324,6 +1324,38 @@ section {
     }
 }
 
+@media (min-width: 1024px) {
+    .biz-card {
+        max-width: 720px;
+        padding: 52px 60px;
+        gap: 44px;
+    }
+    .biz-card-mono {
+        font-size: 84px;
+        padding-right: 40px;
+    }
+    .biz-name {
+        font-size: 26px;
+        margin-bottom: 8px;
+    }
+    .biz-role {
+        font-size: 13px;
+        margin-bottom: 18px;
+    }
+    .biz-rule {
+        margin-bottom: 18px;
+    }
+    .biz-links {
+        font-size: 14px;
+        line-height: 1.85;
+        gap: 8px;
+    }
+    .biz-link-icon {
+        width: 16px;
+        height: 16px;
+    }
+}
+
 /* Featured email card (above the grid) */
 .contact-featured {
     display: flex;

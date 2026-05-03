@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michael Gallo, IT Services / Arlington, Falls Church VA</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #1c1c1c;
+    background: #fafaf7;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: #b9456b; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .variant-label {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 100;
+    background: rgba(0,0,0,0.72);
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 640px;
+    width: 100%;
+    overflow: hidden;
+    color: #fff;
+  }
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.7) 100%);
+    z-index: 1;
+  }
+  .hero-nav {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 48px;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .hero-nav .brand { font-weight: 600; }
+  .hero-nav .nav-links { display: flex; gap: 32px; }
+  .hero-nav .nav-links a { color: #fff; opacity: 0.85; }
+  .hero-nav .nav-links a:hover { opacity: 1; text-decoration: none; }
+
+  .hero-content {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    bottom: 14vh;
+    padding: 0 48px;
+    max-width: 1100px;
+  }
+  .hero-eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .hero h1 {
+    font-size: clamp(48px, 8vw, 104px);
+    line-height: 1.02;
+    margin: 0 0 24px 0;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .hero-tag {
+    font-size: clamp(18px, 2vw, 22px);
+    max-width: 620px;
+    margin: 0 0 12px 0;
+    opacity: 0.95;
+    line-height: 1.45;
+  }
+  .hero-loc {
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 36px;
+  }
+  .cta {
+    display: inline-block;
+    background: #fff;
+    color: #1c1c1c;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 18px 36px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .cta:hover { background: #ffe6ef; text-decoration: none; transform: translateY(-2px); }
+  .cta.dark { background: #1c1c1c; color: #fff; }
+  .cta.dark:hover { background: #b9456b; }
+
+  /* photo credit corner overlay */
+  .credit {
+    position: absolute;
+    bottom: 14px;
+    right: 16px;
+    z-index: 3;
+    color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  }
+
+  /* SECTION SCAFFOLD */
+  section { padding: 120px 48px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #b9456b;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  h2 {
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.05;
+    margin: 0 0 32px 0;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  /* ABOUT */
+  .about { background: #fafaf7; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 72px;
+    align-items: center;
+  }
+  .about-photo-wrap {
+    position: relative;
+  }
+  .about-photo-wrap img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+  .about-body p {
+    font-size: 19px;
+    line-height: 1.7;
+    margin: 0 0 20px 0;
+    color: #2c2c2c;
+  }
+  .about-body p:first-of-type { font-size: 22px; line-height: 1.55; color: #1c1c1c; }
+  .about-meta {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #e3e0d8;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .about-meta div { font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: #6c6960; }
+  .about-meta strong { display: block; font-size: 18px; color: #1c1c1c; text-transform: none; letter-spacing: 0; margin-bottom: 4px; font-weight: 600; }
+
+  /* DIVIDER PHOTO */
+  .divider {
+    position: relative;
+    height: 60vh;
+    min-height: 420px;
+    overflow: hidden;
+  }
+  .divider img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .divider-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(34,28,52,0.45), rgba(34,28,52,0.25));
+  }
+  .divider-quote {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 48px;
+    z-index: 2;
+  }
+  .divider-quote p {
+    color: #fff;
+    font-size: clamp(26px, 4vw, 42px);
+    line-height: 1.25;
+    max-width: 880px;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  /* WHAT I HELP WITH */
+  .help { background: #fff; }
+  .help-lead {
+    font-size: 24px;
+    line-height: 1.55;
+    max-width: 780px;
+    margin: 0 0 64px 0;
+    color: #2c2c2c;
+  }
+  .help-cats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  .help-cat h3 {
+    font-size: 24px;
+    margin: 0 0 12px 0;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .help-cat p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #4a4a4a;
+    margin: 0;
+  }
+  .help-cat .num {
+    font-size: 13px;
+    color: #b9456b;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .help-aside {
+    margin-top: 64px;
+    padding: 32px 36px;
+    background: #faf3f6;
+    border-left: 4px solid #b9456b;
+    font-size: 19px;
+    line-height: 1.55;
+    color: #2c2c2c;
+    border-radius: 2px;
+  }
+  .help-aside strong { color: #b9456b; }
+
+  /* PAST WORK */
+  .work { background: #1c1c1c; color: #f6f3ec; }
+  .work .section-label { color: #ffb0c8; }
+  .work h2 { color: #fff; }
+  .work-list { list-style: none; padding: 0; margin: 40px 0 0 0; }
+  .work-list li {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 32px;
+    align-items: baseline;
+    padding: 32px 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    font-size: 19px;
+  }
+  .work-list li:last-child { border-bottom: 1px solid rgba(255,255,255,0.15); }
+  .work-list .yr { color: #ffb0c8; font-size: 14px; letter-spacing: 0.1em; font-weight: 600; }
+  .work-list .desc { color: #f6f3ec; }
+  .work-list .desc strong { display: block; font-size: 22px; font-weight: 600; margin-bottom: 4px; color: #fff; }
+  .work-list .tag { color: #aaa; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* CONTACT */
+  .contact { background: #fafaf7; padding: 140px 48px; }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .contact h2 { margin-bottom: 16px; }
+  .contact-lead { font-size: 21px; color: #4a4a4a; line-height: 1.55; margin: 0 0 32px 0; max-width: 460px; }
+  .contact-block { display: flex; flex-direction: column; gap: 28px; }
+  .contact-item .label {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #6c6960;
+    margin-bottom: 6px;
+  }
+  .contact-item .val {
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 600;
+    color: #1c1c1c;
+    letter-spacing: -0.01em;
+    word-break: break-word;
+  }
+  .contact-item .val a { color: #1c1c1c; }
+  .contact-item .val a:hover { color: #b9456b; text-decoration: none; }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 48px;
+    background: #1c1c1c;
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 880px) {
+    .hero-nav { padding: 20px 24px; }
+    .hero-nav .nav-links { gap: 18px; font-size: 13px; }
+    .hero-content { padding: 0 24px; bottom: 10vh; }
+    section { padding: 80px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-photo-wrap img { aspect-ratio: 4/5; max-height: 540px; }
+    .about-meta { grid-template-columns: 1fr; gap: 16px; }
+    .help-cats { grid-template-columns: 1fr; gap: 36px; }
+    .work-list li { grid-template-columns: 1fr; gap: 6px; }
+    .work-list .tag { margin-top: 4px; }
+    .contact { padding: 80px 24px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+    .divider { height: 40vh; min-height: 300px; }
+  }
+
+  @media (max-width: 520px) {
+    body { font-size: 17px; }
+    .hero-nav .nav-links { display: none; }
+    .hero h1 { font-size: 44px; }
+    .credit { font-size: 9px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="variant-label">v8 · hero portrait dominant</div>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-img" src="pink-lake.jpg" alt="Pink sunset over a lake">
+  <div class="hero-overlay"></div>
+
+  <nav class="hero-nav">
+    <div class="brand">Michael Gallo</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#help">Services</a>
+      <a href="#work">Past Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">IT Services / Northern Virginia</div>
+    <h1>Tech help<br>you can trust.</h1>
+    <p class="hero-tag">Patient, expert support for computers, networks, and small business websites. In your home, your office, or remote.</p>
+    <div class="hero-loc">Arlington · Falls Church · Northern Virginia</div>
+    <a href="#contact" class="cta">Get In Touch</a>
+  </div>
+
+  <div class="credit">© M.GALLO · MN '25</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-label">About</div>
+    <h2>Hi, I'm Michael.</h2>
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <img src="profile.jpg" alt="Michael Gallo portrait">
+      </div>
+      <div class="about-body">
+        <p>I'm a software engineer based in Arlington, Virginia, helping neighbors and small businesses get their tech working the way it should.</p>
+        <p>I finished my Master's in Computer Science at the University of Vermont in 2025 with a 3.94 GPA, and I've been doing this work professionally since 2024. I take my time, explain what I'm doing, and don't talk down to anyone.</p>
+        <p>I work in person across Arlington and Falls Church, or remotely if that's easier for you.</p>
+
+        <div class="about-meta">
+          <div><strong>M.S. Computer Science</strong>UVM, 2025</div>
+          <div><strong>3.94 GPA</strong>Graduate Coursework</div>
+          <div><strong>Since 2024</strong>Professional IT</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER PHOTO -->
+<section class="divider" style="padding: 0;">
+  <img src="ivy-courtyard.jpg" alt="Quiet ivy-covered courtyard">
+  <div class="divider-overlay"></div>
+  <div class="divider-quote">
+    <p>"I want you to feel comfortable asking the question, no matter how small it sounds."</p>
+  </div>
+  <div class="credit">© M.GALLO · NYC '25</div>
+</section>
+
+<!-- WHAT I HELP WITH -->
+<section class="help" id="help">
+  <div class="container">
+    <div class="section-label">What I Help With</div>
+    <h2>The everyday stuff, and then some.</h2>
+    <p class="help-lead">Most calls fall into one of these three buckets. If yours doesn't, that's fine, just ask. I'd rather hear about it than have you guess whether it's something I do.</p>
+
+    <div class="help-cats">
+      <div class="help-cat">
+        <span class="num">01 / Computers</span>
+        <h3>Computers, top to bottom.</h3>
+        <p>Setting up a new laptop, transferring files from an old one, sorting out a slow machine, removing things that shouldn't be there, getting printers and monitors talking to each other.</p>
+      </div>
+      <div class="help-cat">
+        <span class="num">02 / Networks</span>
+        <h3>Wi-Fi and networks.</h3>
+        <p>Wi-Fi that drops in the back bedroom, routers that need replacing, mesh setups, password resets, smart home devices that won't connect, basic security cleanup.</p>
+      </div>
+      <div class="help-cat">
+        <span class="num">03 / Websites</span>
+        <h3>Small business websites.</h3>
+        <p>A simple, professional site for your business or practice. Or a tune-up of one you already have. Built clean, hosted reliably, easy for you to update.</p>
+      </div>
+    </div>
+
+    <div class="help-aside">
+      <strong>Whatever else, just ask.</strong> Phones, tablets, email troubles, smart TVs, backups, password managers. If I can help, I will. If it's not my thing, I'll tell you and point you somewhere good.
+    </div>
+  </div>
+</section>
+
+<!-- PAST WORK -->
+<section class="work" id="work">
+  <div class="container">
+    <div class="section-label">Past Work</div>
+    <h2>A few recent jobs.</h2>
+    <ul class="work-list">
+      <li>
+        <span class="yr">2025</span>
+        <span class="desc"><strong>stephenshanabrook.com</strong>Designed and built a clean portfolio site for a working artist, with hosting and easy updates.</span>
+        <span class="tag">Website</span>
+      </li>
+      <li>
+        <span class="yr">2025</span>
+        <span class="desc"><strong>New computer transition</strong>Migrated files, photos, mail, and apps from an aging laptop to a new machine with zero data loss.</span>
+        <span class="tag">Setup / Migration</span>
+      </li>
+      <li>
+        <span class="yr">2025</span>
+        <span class="desc"><strong>Secure laptop wipe</strong>Backed up what mattered, then wiped a retired laptop properly before donation. Verified clean.</span>
+        <span class="tag">Data / Security</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label">Get In Touch</div>
+        <h2>Let's sort it out.</h2>
+        <p class="contact-lead">Send a quick note describing what's going on. I usually reply same day, and the first conversation is always free.</p>
+        <a href="mailto:michael@michaelgit.com" class="cta dark">Email Michael</a>
+      </div>
+      <div class="contact-block">
+        <div class="contact-item">
+          <div class="label">Email</div>
+          <div class="val"><a href="mailto:michael@michaelgit.com">michael@michaelgit.com</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="label">Phone</div>
+          <div class="val"><a href="tel:+15555555555">(555) 555-5555</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="label">Service Area</div>
+          <div class="val" style="font-size: 19px; font-weight: 500;">Arlington · Falls Church · Northern Virginia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Michael Gallo / michaelgit.com / Arlington, VA
+</footer>
+
+</body>
+</html>

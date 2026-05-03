@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Services · Michael Gallo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: #2a2622;
+    background: #faf7f2;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .variant-label {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    background: rgba(20, 18, 16, 0.78);
+    color: #f5ede0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 999px;
+    z-index: 100;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 92vh;
+    min-height: 560px;
+    width: 100%;
+    overflow: hidden;
+    background: #1a1612;
+  }
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(20, 16, 14, 0.20) 0%,
+      rgba(20, 16, 14, 0.10) 40%,
+      rgba(20, 16, 14, 0.55) 100%
+    );
+  }
+  .hero-content {
+    position: absolute;
+    bottom: 9%;
+    left: 0;
+    right: 0;
+    padding: 0 8vw;
+    color: #faf3e8;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.92;
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    font-size: clamp(40px, 7vw, 84px);
+    line-height: 1.05;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.35);
+  }
+  .hero-sub {
+    font-size: clamp(18px, 2vw, 22px);
+    font-style: italic;
+    opacity: 0.95;
+    max-width: 560px;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.4);
+  }
+  .hero-credit {
+    position: absolute;
+    bottom: 18px;
+    right: 22px;
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(250, 243, 232, 0.7);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: 0.04em;
+  }
+
+  /* ARTICLE */
+  article {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 6vw;
+  }
+
+  .intro {
+    max-width: 720px;
+    margin: 100px auto 80px;
+    text-align: center;
+  }
+  .intro .kicker {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #a8927a;
+    margin-bottom: 20px;
+  }
+  .intro p {
+    font-size: 22px;
+    line-height: 1.7;
+    color: #4a3f33;
+    font-style: italic;
+  }
+  .intro p::first-letter {
+    font-size: 56px;
+    float: left;
+    line-height: 0.95;
+    margin: 6px 10px 0 0;
+    color: #6b5234;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* BLOCKS */
+  .block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+    margin: 120px 0;
+  }
+  .block.reverse .block-img { order: 2; }
+  .block.reverse .block-text { order: 1; }
+
+  .block-img figure {
+    margin: 0;
+  }
+  .block-img img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 18px 50px -20px rgba(60, 40, 20, 0.35);
+  }
+  .block-img figcaption {
+    margin-top: 12px;
+    font-size: 13px;
+    font-style: italic;
+    color: #8a7560;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: 0.03em;
+  }
+
+  .block-text h2 {
+    font-size: clamp(30px, 3.6vw, 44px);
+    line-height: 1.15;
+    font-weight: 400;
+    color: #1f1a14;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+  .block-text h2 .accent {
+    color: #8a6a3e;
+    font-style: italic;
+  }
+  .block-text p {
+    margin-bottom: 18px;
+    color: #3a322a;
+  }
+  .block-text p:last-child { margin-bottom: 0; }
+
+  .pull-rule {
+    width: 50px;
+    height: 2px;
+    background: #b89466;
+    margin-bottom: 28px;
+  }
+
+  /* FULL BLEED BREAK */
+  .bleed {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    margin-top: 140px;
+    margin-bottom: 140px;
+  }
+  .bleed img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .bleed-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15,12,10,0.15), rgba(15,12,10,0.55));
+  }
+  .bleed-quote {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8vw;
+    text-align: center;
+    color: #faf3e8;
+  }
+  .bleed-quote blockquote {
+    max-width: 780px;
+    font-size: clamp(26px, 3.8vw, 40px);
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 400;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+  }
+  .bleed-quote cite {
+    display: block;
+    margin-top: 24px;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-style: normal;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    opacity: 0.85;
+  }
+  .bleed-credit {
+    position: absolute;
+    bottom: 14px;
+    right: 20px;
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(250, 243, 232, 0.75);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  /* SERVICES LIST */
+  .services-list {
+    list-style: none;
+    margin-top: 8px;
+  }
+  .services-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid #e6dccb;
+    font-size: 19px;
+    color: #2a2622;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .services-list li:last-child { border-bottom: none; }
+  .services-list .num {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    color: #a8927a;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.08em;
+    min-width: 32px;
+  }
+
+  /* PAST WORK */
+  .pastwork {
+    background: #f1ebde;
+    padding: 70px 8vw;
+    margin: 100px calc(-6vw) 0;
+    border-top: 1px solid #e0d5be;
+    border-bottom: 1px solid #e0d5be;
+  }
+  .pastwork-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .pastwork .kicker {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8a6a3e;
+    margin-bottom: 18px;
+  }
+  .pastwork h3 {
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 18px;
+    color: #1f1a14;
+  }
+  .pastwork p {
+    font-size: 17px;
+    color: #4a3f33;
+    margin-bottom: 14px;
+  }
+  .pastwork p:last-child { margin-bottom: 0; }
+  .pastwork a {
+    color: #6b4a1e;
+    text-decoration: underline;
+    text-decoration-color: #c8a97a;
+    text-underline-offset: 3px;
+  }
+
+  /* CTA */
+  .cta {
+    text-align: center;
+    padding: 130px 6vw 110px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .cta .kicker {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #a8927a;
+    margin-bottom: 22px;
+  }
+  .cta h2 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 22px;
+    color: #1f1a14;
+    letter-spacing: -0.01em;
+  }
+  .cta p.lead {
+    font-size: 20px;
+    color: #4a3f33;
+    margin-bottom: 44px;
+    font-style: italic;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 18px 32px;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary {
+    background: #2a2014;
+    color: #faf3e8;
+    box-shadow: 0 6px 18px -8px rgba(42, 32, 20, 0.5);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px -8px rgba(42, 32, 20, 0.6);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: #2a2014;
+    border: 1.5px solid #2a2014;
+  }
+  .btn-secondary:hover {
+    background: #2a2014;
+    color: #faf3e8;
+  }
+  .cta-meta {
+    font-size: 15px;
+    color: #6b5e4d;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  .cta-meta span { margin: 0 6px; color: #b89466; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 36px 20px;
+    border-top: 1px solid #e0d5be;
+    font-size: 13px;
+    color: #8a7560;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: 0.04em;
+  }
+
+  /* MOBILE */
+  @media (max-width: 760px) {
+    body { font-size: 17px; }
+    .hero { height: 80vh; min-height: 480px; }
+    .hero-content { bottom: 7%; padding: 0 7vw; }
+    .intro { margin: 70px auto 60px; }
+    .intro p { font-size: 19px; }
+    .block {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin: 80px 0;
+    }
+    .block.reverse .block-img { order: 1; }
+    .block.reverse .block-text { order: 2; }
+    .block-img img { aspect-ratio: 3/4; }
+    .bleed { height: 55vh; min-height: 380px; margin: 90px 0; }
+    .pastwork { padding: 50px 7vw; margin: 70px calc(-6vw) 0; }
+    .cta { padding: 90px 6vw 80px; }
+    .btn { padding: 16px 24px; font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="variant-label">v5 · story scroll</div>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-img" src="pink-lake.jpg" alt="Pink lake at dusk">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">IT Services · Arlington · Falls Church</div>
+    <h1 class="hero-title">Hi, I'm Michael.</h1>
+    <p class="hero-sub">Tech help you can trust, from a neighbor who actually picks up the phone.</p>
+  </div>
+  <div class="hero-credit">Northern Minnesota · July 2025</div>
+</section>
+
+<article>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <div class="kicker">A Note Before We Start</div>
+    <p>Most of my customers tell me the same thing on the first call. "I'm just not a tech person." That's fine. You don't have to be. That's what I'm here for.</p>
+  </div>
+
+  <!-- BLOCK 1: Who he is -->
+  <section class="block">
+    <div class="block-img">
+      <figure>
+        <img src="profile.jpg" alt="Michael Gallo">
+        <figcaption>Portrait · 2025</figcaption>
+      </figure>
+    </div>
+    <div class="block-text">
+      <div class="pull-rule"></div>
+      <h2>A computer scientist <span class="accent">who likes people.</span></h2>
+      <p>I finished my Master's in Computer Science at the University of Vermont in 2025, graduating with a 3.94 GPA. The degree matters less than what it represents, which is years of getting comfortable with how computers actually work, not just how to use them.</p>
+      <p>I started doing this work for neighbors and friends back in 2024. Word spread, and what began as a favor turned into something I genuinely look forward to. I'm based in the Arlington and Falls Church area, and most of my customers are right here in the neighborhood.</p>
+    </div>
+  </section>
+
+  <!-- FULL BLEED 1 -->
+  <div class="bleed">
+    <img src="hero-stars.jpg" alt="Stars over a quiet field">
+    <div class="bleed-overlay"></div>
+    <div class="bleed-quote">
+      <blockquote>
+        "Technology should feel less like a maze and more like a tool. That's the whole job."
+        <cite>— Michael</cite>
+      </blockquote>
+    </div>
+    <div class="bleed-credit">Indiana · July 2025</div>
+  </div>
+
+  <!-- BLOCK 2: Why he does this -->
+  <section class="block reverse">
+    <div class="block-img">
+      <figure>
+        <img src="ivy-courtyard.jpg" alt="Ivy-covered courtyard">
+        <figcaption>Northeast travels · July 2025</figcaption>
+      </figure>
+    </div>
+    <div class="block-text">
+      <div class="pull-rule"></div>
+      <h2>Why I <span class="accent">do this.</span></h2>
+      <p>There's a particular kind of frustration that comes with feeling like the world has moved on without you. New phone, new login, new prompt asking you to "verify" something. I've watched smart, capable people quietly decide they're "bad at computers" because no one ever sat down with them and explained things in plain English.</p>
+      <p>I love the moment when that flips. When someone realizes the machine isn't smarter than them, it's just unfamiliar. Once it's familiar, it's yours.</p>
+    </div>
+  </section>
+
+  <!-- BLOCK 3: What he helps with -->
+  <section class="block">
+    <div class="block-img">
+      <figure>
+        <img src="cornfield-stars.jpg" alt="Stars over a cornfield">
+        <figcaption>Indiana · July 2025</figcaption>
+      </figure>
+    </div>
+    <div class="block-text">
+      <div class="pull-rule"></div>
+      <h2>What I can <span class="accent">help with.</span></h2>
+      <p>Most of what I do is everyday stuff. The kind of thing you'd ask a tech-savvy grandkid about, except I show up on time and I don't roll my eyes.</p>
+      <ul class="services-list">
+        <li><span class="num">01</span> Computer setup, cleanup, and tune-ups</li>
+        <li><span class="num">02</span> Wi-Fi that finally reaches the back bedroom</li>
+        <li><span class="num">03</span> Moving files between old and new devices</li>
+        <li><span class="num">04</span> Wiping old computers safely before you donate or toss them</li>
+        <li><span class="num">05</span> Simple websites for small businesses or personal use</li>
+        <li><span class="num">06</span> General "can you just take a look at this?" help</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PAST WORK -->
+  <section class="pastwork">
+    <div class="pastwork-inner">
+      <div class="kicker">A Few Things I've Done Lately</div>
+      <h3>Recent work, in brief.</h3>
+      <p>Built and now maintain <a href="https://stephenshanabrook.com">stephenshanabrook.com</a> for a local artist, a clean simple site that he can hand out at shows.</p>
+      <p>Helped several customers transition from old laptops to new ones, moving over photos, documents, and email without losing a thing.</p>
+      <p>Wiped a stack of retired laptops for a client who needed to be sure nothing personal was left behind before recycling them.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="kicker">Get in Touch</div>
+    <h2>Drop me a line.</h2>
+    <p class="lead">I work in person across Arlington and Falls Church, and remotely anywhere a screen-share will reach. First call is free, no pressure.</p>
+    <div class="cta-buttons">
+      <a class="btn btn-primary" href="mailto:michael@gallocoding.com">Email me</a>
+      <a class="btn btn-secondary" href="tel:5712963831">Call 571-296-3831</a>
+    </div>
+    <div class="cta-meta">
+      michael@gallocoding.com <span>·</span> 571.296.3831 <span>·</span> Arlington, VA
+    </div>
+  </section>
+
+</article>
+
+<footer>
+  © 2026 Michael Gallo · michaelgit.com
+</footer>
+
+</body>
+</html>

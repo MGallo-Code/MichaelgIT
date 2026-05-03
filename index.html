@@ -3,152 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Michael Gallo - IT and tech help in Arlington and Falls Church, VA. Computer setup, repair, data transfer, and website building.">
-    <title>Michael G IT - Tech Help You Can Trust</title>
+    <meta name="description" content="Michael Gallo — IT and tech help in Arlington and Falls Church, VA. Computer setup, repair, networks, and small business websites.">
+    <title>MichaelGIT.com — Tech Help You Can Trust</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="nav-brand">MichaelG<span class="brand-accent">IT</span></div>
-            <ul class="nav-links">
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#work">Past Work</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Tech Help You Can Trust</h1>
-                <p>Computer problems? Need help setting up new equipment? I make technology simple and stress-free.</p>
-                <p class="hero-location">Serving Arlington, Falls Church, and Northern Virginia</p>
-                <a href="#contact" class="cta-button">Get In Touch</a>
+<!-- HERO -->
+<section class="hero">
+    <img class="hero-img" src="pink-lake.jpg" alt="">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <div class="hero-eyebrow"><span class="eyebrow-rule"></span>IT Services / Northern Virginia</div>
+        <h1 class="hero-title">Tech help<br>you can trust.</h1>
+        <p class="hero-tag">Patient, expert support for computers, networks, and small business websites. In your home, your office, or remote.</p>
+        <div class="hero-loc">Arlington · Falls Church · Northern Virginia</div>
+        <a href="#contact" class="btn-gold">Get In Touch</a>
+    </div>
+
+    <div class="credit credit-hero">© M.GALLO · MN '25</div>
+
+    <!-- StickyNav: lives at the bottom of the hero by default, pins to top when scrolled past -->
+    <nav class="nav" id="navBar" data-pinned="false">
+        <a href="#" class="wordmark">MichaelG<span class="wm-it">IT</span><span class="wm-com">.com</span></a>
+        <div class="nav-right">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#services" class="nav-link">Services</a>
+            <a href="#work" class="nav-link">Past Work</a>
+            <a href="#contact" class="nav-cta">Contact ↗</a>
+        </div>
+    </nav>
+</section>
+
+<!-- ABOUT (Mac window wrapping profile + body) -->
+<section class="about" id="about">
+    <div class="container">
+        <div class="eyebrow">About</div>
+        <h2 class="about-h">Hi, I'm <em>Michael.</em></h2>
+
+        <div class="mac-window about-window">
+            <div class="mw-titlebar">
+                <span class="mw-dots"><span class="mw-dot dr"></span><span class="mw-dot dy"></span><span class="mw-dot dg"></span></span>
+                <span class="mw-title">About — michaelgit.com</span>
             </div>
-        </section>
+            <div class="mw-addr">
+                <span class="mw-arrows">
+                    <span class="mw-arrow">‹</span>
+                    <span class="mw-arrow disabled">›</span>
+                </span>
+                <span class="mw-url">
+                    <span class="mw-lock">🔒</span>
+                    <span class="mw-proto">https://</span>michaelgit.com/about
+                </span>
+            </div>
+            <div class="mw-body">
+                <div class="about-grid">
+                    <img class="about-photo" src="profile.jpg" alt="Michael Gallo portrait">
+                    <div class="about-body">
+                        <p class="about-lede"><span class="dropcap">I</span>'m a software engineer based in Arlington, Virginia, helping neighbors and small businesses get their tech working the way it should.</p>
+                        <p class="about-p">I finished my Master's in Computer Science at the University of Vermont in 2025 with a 3.94 GPA, and I've been doing this work professionally since 2024. I take my time, explain what I'm doing, and don't talk down to anyone.</p>
+                        <p class="about-p">I work in person across Arlington and Falls Church, or remotely if that's easier for you.</p>
 
-        <section id="services" class="services">
-            <h2>How I Can Help</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>Computer Setup</h3>
-                    <p>New computer? I'll set it up, transfer your files and photos from your old machine, and make sure everything works.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Computer Repair</h3>
-                    <p>Slow computer? Strange errors? I'll diagnose the problem and get things running smoothly again.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Network and Wi-Fi</h3>
-                    <p>New router setup, Wi-Fi trouble, or connectivity issues. I'll get your internet working reliably.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Device Recycling</h3>
-                    <p>Selling or donating old laptops? I'll securely wipe your data so nothing personal is left behind.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Websites for Small Businesses</h3>
-                    <p>Need a website for your business? I build clean, professional sites that are easy for your customers to use.</p>
-                </div>
-                <div class="service-card">
-                    <h3>General Tech Help</h3>
-                    <p>Not sure what you need? Reach out and describe your situation. I'm happy to help figure it out.</p>
+                        <div class="about-stats">
+                            <div class="stat">
+                                <div class="stat-v">M.S. Computer Science</div>
+                                <div class="stat-l">UVM, 2025</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-v">3.94 GPA</div>
+                                <div class="stat-l">Graduate Coursework</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-v">Since 2024</div>
+                                <div class="stat-l">Professional IT</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
-        <div id="about" class="about-wrapper">
-            <section class="about">
-                <h2>About Me</h2>
-                <div class="about-content">
-                    <p>Hi, I'm Michael Gallo. I have a Master's degree in Computer Science from the University of Vermont and I've been working with technology professionally since 2024.</p>
-                    <p>I believe in doing things right. When I work on your computer or set up your network, I treat it like it's my own. I'll explain what I'm doing in plain language, and I won't leave until the job is done properly.</p>
-                    <p>I'm based in the Arlington and Falls Church area and I'm available for in-person or remote help.</p>
+<!-- DIVIDER -->
+<section class="divider">
+    <img src="ivy-courtyard.jpg" alt="">
+    <div class="divider-overlay"></div>
+    <p class="divider-quote">"I want you to feel comfortable asking the question, no matter how small it sounds."</p>
+    <div class="credit credit-light">© M.GALLO · CHICAGO '25</div>
+</section>
+
+<!-- SERVICES (3 Mac-window cards) -->
+<section class="services" id="services">
+    <div class="container">
+        <div class="eyebrow">What I Help With</div>
+        <h2 class="section-h">The everyday stuff, and then some.</h2>
+        <p class="section-lead">Most calls fall into one of these three buckets. If yours doesn't, that's fine, just ask. I'd rather hear about it than have you guess whether it's something I do.</p>
+
+        <div class="services-grid">
+            <div class="mac-window">
+                <div class="mw-titlebar">
+                    <span class="mw-dots"><span class="mw-dot dr"></span><span class="mw-dot dy"></span><span class="mw-dot dg"></span></span>
+                    <span class="mw-title">~/computers.md</span>
                 </div>
-            </section>
+                <div class="mw-body service-body">
+                    <div class="svc-num">01 / Computers</div>
+                    <h3 class="svc-h">Computers, top to bottom.</h3>
+                    <p class="svc-p">Setting up a new laptop, transferring files from an old one, sorting out a slow machine, removing things that shouldn't be there, getting printers and monitors talking to each other.</p>
+                </div>
+            </div>
+            <div class="mac-window">
+                <div class="mw-titlebar">
+                    <span class="mw-dots"><span class="mw-dot dr"></span><span class="mw-dot dy"></span><span class="mw-dot dg"></span></span>
+                    <span class="mw-title">~/networks.md</span>
+                </div>
+                <div class="mw-body service-body">
+                    <div class="svc-num">02 / Networks</div>
+                    <h3 class="svc-h">Wi-Fi and networks.</h3>
+                    <p class="svc-p">Wi-Fi that drops in the back bedroom, routers that need replacing, mesh setups, password resets, smart home devices that won't connect, basic security cleanup.</p>
+                </div>
+            </div>
+            <div class="mac-window">
+                <div class="mw-titlebar">
+                    <span class="mw-dots"><span class="mw-dot dr"></span><span class="mw-dot dy"></span><span class="mw-dot dg"></span></span>
+                    <span class="mw-title">~/websites.md</span>
+                </div>
+                <div class="mw-body service-body">
+                    <div class="svc-num">03 / Websites</div>
+                    <h3 class="svc-h">Small business websites.</h3>
+                    <p class="svc-p">A simple, professional site for your business or practice. Or a tune-up of one you already have. Built clean, hosted reliably, easy for you to update.</p>
+                </div>
+            </div>
         </div>
 
-        <section id="work" class="work">
-            <h2>Past Work</h2>
-            <div class="work-grid">
-                <div class="work-card">
-                    <h3>stephenshanabrook.com</h3>
-                    <p>Built a professional website for a local client's business.</p>
-                    <a href="https://stephenshanabrook.com" target="_blank" rel="noopener" class="visit-btn">Visit Site</a>
+        <div class="aside">
+            <strong>Whatever else, just ask.</strong> Phones, tablets, email troubles, smart TVs, backups, password managers. If I can help, I will. If it's not my thing, I'll tell you and point you somewhere good.
+        </div>
+    </div>
+</section>
+
+<!-- PAST WORK -->
+<section class="past-work" id="work">
+    <div class="container">
+        <div class="eyebrow eyebrow-light">Past Work</div>
+        <h2 class="section-h light">A few recent jobs.</h2>
+        <ul class="work-list">
+            <li class="work-item">
+                <span class="work-yr">2025</span>
+                <span class="work-desc">
+                    <strong>stephenshanabrook.com</strong>
+                    <span>Designed and built a clean portfolio site for a working artist, with hosting and easy updates.</span>
+                </span>
+                <span class="work-tag">~website</span>
+            </li>
+            <li class="work-item">
+                <span class="work-yr">2025</span>
+                <span class="work-desc">
+                    <strong>New computer transition</strong>
+                    <span>Migrated files, photos, mail, and apps from an aging laptop to a new machine with zero data loss.</span>
+                </span>
+                <span class="work-tag">~setup-migration</span>
+            </li>
+            <li class="work-item last">
+                <span class="work-yr">2025</span>
+                <span class="work-desc">
+                    <strong>Secure laptop wipe</strong>
+                    <span>Backed up what mattered, then wiped a retired laptop properly before donation. Verified clean.</span>
+                </span>
+                <span class="work-tag">~data-security</span>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+    <div class="container">
+        <div class="contact-grid">
+            <div>
+                <div class="eyebrow">Get In Touch</div>
+                <h2 class="section-h">Let's sort it out.</h2>
+                <p class="contact-lead">Send a quick note describing what's going on. I usually reply same day, and the first conversation is always free.</p>
+                <a href="mailto:michael@gallocoding.com" class="btn-dark email-link">Email Michael →</a>
+            </div>
+            <div class="contact-block">
+                <div class="contact-item">
+                    <div class="ci-label">Email</div>
+                    <div class="ci-val ci-big"><a href="mailto:michael@gallocoding.com">michael@gallocoding.com</a></div>
                 </div>
-                <div class="work-card">
-                    <h3>Full Computer Transition</h3>
-                    <p>Helped a client move from an aging computer to a brand new setup. Diagnosed the old machine's issues, configured a new router, and transferred all their important files.</p>
+                <div class="contact-item">
+                    <div class="ci-label">Phone</div>
+                    <div class="ci-val ci-big"><a href="tel:+15712963831">(571) 296-3831</a></div>
                 </div>
-                <div class="work-card">
-                    <h3>Laptop Resale Preparation</h3>
-                    <p>Securely wiped multiple laptops for a client, removing all personal data and restoring them to factory condition for resale.</p>
+                <div class="contact-item">
+                    <div class="ci-label">Service Area</div>
+                    <div class="ci-val ci-area">Arlington · Falls Church · Northern Virginia</div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
-        <section id="contact" class="contact">
-            <h2>Get In Touch</h2>
-            <p>Have a question or need help with something? Send me an email and I'll get back to you as soon as I can.</p>
-            <a href="mailto:michael@gallocoding.com" class="email-link">michael@gallocoding.com</a>
-        </section>
-    </main>
+<footer>
+    © 2026 Michael Gallo / michaelgit.com / Arlington, VA
+</footer>
 
-    <script>
-    (function() {
-        if (window.matchMedia('(hover: none)').matches) return;
+<script>
+(function() {
+    var nav = document.getElementById('navBar');
+    var hero = document.querySelector('.hero');
+    if (!nav || !hero) return;
+    var lastPinned = false;
+    var raf = 0;
+    function update() {
+        var heroBottom = hero.getBoundingClientRect().bottom;
+        var navH = nav.offsetHeight || 72;
+        var pinned = heroBottom <= navH;
+        if (pinned !== lastPinned) {
+            nav.setAttribute('data-pinned', pinned ? 'true' : 'false');
+            lastPinned = pinned;
+        }
+    }
+    function onScroll() {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(update);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+})();
 
-        const contact = document.getElementById('contact');
-        const emailBtn = contact.querySelector('.email-link');
-        const cursor = document.createElement('div');
-        cursor.className = 'custom-cursor';
-        cursor.textContent = '\u279C';
-        document.body.appendChild(cursor);
+// Email-arrow custom cursor — follows the mouse inside #contact, rotates to
+// point at the primary email button. Skipped on touch devices.
+(function() {
+    if (window.matchMedia('(hover: none)').matches) return;
+    var contact = document.getElementById('contact');
+    if (!contact) return;
+    var emailBtn = contact.querySelector('.email-link');
+    if (!emailBtn) return;
 
-        let inContact = false;
-        let overBtn = false;
+    var cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    cursor.textContent = '➜';
+    document.body.appendChild(cursor);
 
-        contact.addEventListener('mouseenter', () => { inContact = true; });
-        contact.addEventListener('mouseleave', () => {
-            inContact = false;
-            cursor.style.opacity = '0';
-        });
+    var inContact = false, overBtn = false;
 
-        contact.addEventListener('mousemove', (e) => {
-            if (!inContact) return;
+    contact.addEventListener('mouseenter', function() { inContact = true; });
+    contact.addEventListener('mouseleave', function() {
+        inContact = false;
+        cursor.style.opacity = '0';
+    });
 
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            cursor.style.opacity = overBtn ? '0' : '1';
+    contact.addEventListener('mousemove', function(e) {
+        if (!inContact) return;
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        cursor.style.opacity = overBtn ? '0' : '1';
+        if (!overBtn) {
+            var r = emailBtn.getBoundingClientRect();
+            var bx = r.left + r.width / 2;
+            var by = r.top + r.height / 2;
+            var angle = Math.atan2(by - e.clientY, bx - e.clientX) * (180 / Math.PI);
+            cursor.style.transform = 'translate(-50%, -50%) rotate(' + angle + 'deg)';
+        }
+    });
 
-            if (!overBtn) {
-                const btnRect = emailBtn.getBoundingClientRect();
-                const btnX = btnRect.left + btnRect.width / 2;
-                const btnY = btnRect.top + btnRect.height / 2;
-                const angle = Math.atan2(btnY - e.clientY, btnX - e.clientX) * (180 / Math.PI);
-                cursor.style.transform = 'translate(-50%, -50%) rotate(' + angle + 'deg)';
-            }
-        });
+    emailBtn.addEventListener('mouseenter', function() {
+        overBtn = true;
+        cursor.style.opacity = '0';
+    });
+    emailBtn.addEventListener('mouseleave', function() {
+        overBtn = false;
+        cursor.style.opacity = '1';
+    });
+})();
+</script>
 
-        emailBtn.addEventListener('mouseenter', () => {
-            overBtn = true;
-            cursor.style.opacity = '0';
-        });
-        emailBtn.addEventListener('mouseleave', () => {
-            overBtn = false;
-            cursor.style.opacity = '1';
-        });
-    })();
-    </script>
-
-    <footer>
-        <p>&copy; 2026 MichaelG<span class="brand-accent">IT</span>. All rights reserved.</p>
-    </footer>
 </body>
 </html>

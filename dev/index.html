@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Michael Gallo - software developer in Northern Virginia. M.S. in Computer Science. TypeScript, Go, Rust, Python. Open to work.">
+    <title>Michael Gallo - Software Developer</title>
+    <link rel="canonical" href="https://michaelgit.com/dev/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header>
+        <nav>
+            <a href="/dev/" class="nav-brand">Michael Gallo<span class="brand-accent">/dev</span></a>
+            <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#stack">Stack</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#connect">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="terminal" role="presentation">
+                    <span class="prompt">$</span><span class="terminal-cmd">whoami --tags</span>
+                    <span class="chip">software-developer</span>
+                    <span class="chip chip-active">open-to-work</span>
+                    <span class="chip">northern-virginia</span>
+                </div>
+
+                <h1>Hey, I'm Michael.</h1>
+                <p class="hero-lead">M.S. in Computer Science (UVM, 2025). I build things in TypeScript, Go, Rust, and Python, usually because I want to actually understand how something works.</p>
+
+                <div class="cta-row">
+                    <a href="resume.pdf" target="_blank" rel="noopener" class="cta-button cta-resume">
+                        <svg class="cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        <span>View resume</span>
+                    </a>
+                    <a href="mailto:michaelgallo.va@gmail.com" class="cta-button cta-email">
+                        <svg class="cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <span>Email me</span>
+                    </a>
+                    <a href="https://calendly.com/michaelgallo/30min" target="_blank" rel="noopener" class="cta-button cta-chat">
+                        <svg class="cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        <span>Book a chat</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <h2>About</h2>
+            <div class="about-content">
+                <p>At the age of 10, a close friend lent me his copy of <a href="https://www.betterworldbooks.com/product/detail/head-first-html-and-css-a-learners-guide-to-creating-standards-based-web-pages-9780596159900" target="_blank" rel="noopener"><em>Head First HTML and CSS</em></a>. I never gave it back, in spirit. Every spare hour after that went to StackOverflow threads, coding blogs, library books, online courses, anything I could get my hands on. The computer science teachers feared my questions in the classroom.</p>
+                <p>Fifteen-ish years later the projects pile is still growing. A flashcard site in SQL, TypeScript, and Python with procedurally-generated audio through AWS Polly. A password manager in Rust (encryption written from scratch because I wanted to actually understand it), and an auth system in Go.</p>
+                <p>After my M.S. Computer Science at UVM (2025) and B.S. with a math minor, I landed at ACTE for a stretch I'm grateful for. If anything below catches your eye (or even if you're just bored), my inbox is open.</p>
+            </div>
+        </section>
+
+        <section id="stack" class="stack">
+            <h2>My (full) stack</h2>
+            <p class="stack-lead">A few of the things I reach for, give or take.</p>
+            <div class="stack-icons">
+                <img src="https://skillicons.dev/icons?i=ts,go,rust,py,nextjs,react,postgres,supabase,aws,docker,neovim,linux&perline=12" alt="TypeScript, Go, Rust, Python, Next.js, React, Postgres, Supabase, AWS, Docker, Neovim, Linux" loading="lazy" />
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <h2>Featured projects</h2>
+
+            <article class="project-card project-featured">
+                <div class="project-head">
+                    <h3>Charon</h3>
+                    <span class="project-tag">Featured</span>
+                </div>
+                <p class="project-tech"><code>Go</code> <code>PostgreSQL</code> <code>Redis</code> <code>Docker</code></p>
+                <p>An auth microservice in Go. Stateless session-based, built for 100K+ concurrent users. Email/password and Google OAuth with PKCE + OIDC, Argon2id, CSRF, rate limiting, Cloudflare Turnstile. Token issuance, rotation, refresh, the full flow, with 123+ tests across unit, integration, and e2e. <strong>If you're hiring, please start here!</strong></p>
+                <div class="project-links">
+                    <a href="https://github.com/MGallo-Code/Charon" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+                </div>
+            </article>
+
+            <div class="projects-grid">
+                <article class="project-card">
+                    <h3>Arete</h3>
+                    <p class="project-tech"><code>TypeScript</code> <code>Next.js</code></p>
+                    <p>Write your full work history once, generate a targeted one-page resume for any job. Diffs your portfolio against the job description and rewrites the gaps.</p>
+                    <a href="https://github.com/MGallo-Code/arete" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+                </article>
+
+                <article class="project-card">
+                    <h3>aggie</h3>
+                    <p class="project-tech"><code>TypeScript</code> <code>Postgres</code> <code>Drizzle</code></p>
+                    <p>An RSS aggregator I run from my terminal. Demo GIF in the repo!</p>
+                    <a href="https://github.com/MGallo-Code/aggie" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+                </article>
+
+                <article class="project-card">
+                    <h3>Keybolt</h3>
+                    <p class="project-tech"><code>Rust</code> <code>Iced</code></p>
+                    <p>A desktop password manager in Rust. AES-GCM encryption and Argon2id key derivation, written from scratch because I wanted to actually understand it.</p>
+                    <a href="https://github.com/MGallo-Code/keybolt" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+                </article>
+
+                <article class="project-card">
+                    <h3>EarTrainer</h3>
+                    <p class="project-tech"><code>Python</code></p>
+                    <p>Pitch and interval training in Python, several quiz modes. Eventual Kickstarter idea (perhaps).</p>
+                    <a href="https://github.com/MGallo-Code/EarTrainer" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="connect" class="connect">
+            <h2>Connect</h2>
+            <p>Inbox is open, calendar is open. Pick whichever's easier.</p>
+            <div class="connect-grid">
+                <a href="mailto:michaelgallo.va@gmail.com" class="connect-card">
+                    <span class="connect-label">Email</span>
+                    <span class="connect-value">michaelgallo.va@gmail.com</span>
+                </a>
+                <a href="https://linkedin.com/in/michael-a-gallo" target="_blank" rel="noopener" class="connect-card">
+                    <span class="connect-label">LinkedIn</span>
+                    <span class="connect-value">michael-a-gallo</span>
+                </a>
+                <a href="https://calendly.com/michaelgallo/30min" target="_blank" rel="noopener" class="connect-card">
+                    <span class="connect-label">Calendly</span>
+                    <span class="connect-value">Book a 30-min chat</span>
+                </a>
+                <a href="https://github.com/MGallo-Code" target="_blank" rel="noopener" class="connect-card">
+                    <span class="connect-label">GitHub</span>
+                    <span class="connect-value">@MGallo-Code</span>
+                </a>
+                <a href="resume.pdf" target="_blank" rel="noopener" class="connect-card">
+                    <span class="connect-label">Resume</span>
+                    <span class="connect-value">PDF</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Michael Gallo</p>
+        <p class="footer-secondary"><a href="/">← Tech help in Arlington / Falls Church</a></p>
+    </footer>
+</body>
+</html>

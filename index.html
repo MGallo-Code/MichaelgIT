@@ -62,7 +62,11 @@
             </div>
             <div class="mw-body">
                 <div class="about-grid">
-                    <img class="about-photo" src="profile.jpg" alt="Michael Gallo portrait">
+                    <div class="about-photo-wrap">
+                        <img class="about-photo" src="profile.jpg" alt="Michael Gallo portrait">
+                        <span class="about-photo-tag">M.G.</span>
+                        <div class="about-photo-credit">© M. GALLO · WASHINGTON SQ., NYC '25</div>
+                    </div>
                     <div class="about-body">
                         <p class="about-lede"><span class="dropcap">I</span>'m a software engineer based in Arlington, Virginia, helping neighbors and small businesses get their tech working the way it should.</p>
                         <p class="about-p">I finished my Master's in Computer Science at the University of Vermont in 2025 with a 3.94 GPA, and I've been doing this work professionally since 2024. I take my time, explain what I'm doing, and don't talk down to anyone.</p>
@@ -102,13 +106,18 @@
     <div class="container">
         <div class="eyebrow">What I Help With</div>
         <h2 class="section-h">The everyday stuff, and then some.</h2>
-        <p class="section-lead">Most calls fall into one of these three buckets. If yours doesn't, that's fine, just ask. I'd rather hear about it than have you guess whether it's something I do.</p>
+        <p class="section-lead">Most calls fall into one of these three buckets. If yours doesn't, please reach out anyway. There's a good chance I can help, and if it's outside what I do, I'll happily point you to someone who can.</p>
 
         <div class="services-grid">
-            <div class="mac-window">
+            <!-- Windows -->
+            <div class="mac-window win-window">
                 <div class="mw-titlebar">
-                    <span class="mw-dots"><span class="mw-dot dr"></span><span class="mw-dot dy"></span><span class="mw-dot dg"></span></span>
-                    <span class="mw-title">~/computers.md</span>
+                    <span class="mw-title">computers.md — Notepad</span>
+                    <span class="mw-controls">
+                        <span class="ctrl" aria-hidden="true">&#x2013;</span>
+                        <span class="ctrl" aria-hidden="true">&#x25A1;</span>
+                        <span class="ctrl close" aria-hidden="true">&#x2715;</span>
+                    </span>
                 </div>
                 <div class="mw-body service-body">
                     <div class="svc-num">01 / Computers</div>
@@ -116,6 +125,7 @@
                     <p class="svc-p">Setting up a new laptop, transferring files from an old one, sorting out a slow machine, removing things that shouldn't be there, getting printers and monitors talking to each other.</p>
                 </div>
             </div>
+            <!-- macOS -->
             <div class="mac-window">
                 <div class="mw-titlebar">
                     <span class="mw-dots"><span class="mw-dot dr"></span><span class="mw-dot dy"></span><span class="mw-dot dg"></span></span>
@@ -127,10 +137,11 @@
                     <p class="svc-p">Wi-Fi that drops in the back bedroom, routers that need replacing, mesh setups, password resets, smart home devices that won't connect, basic security cleanup.</p>
                 </div>
             </div>
-            <div class="mac-window">
+            <!-- Linux / GNOME -->
+            <div class="mac-window nix-window">
                 <div class="mw-titlebar">
-                    <span class="mw-dots"><span class="mw-dot dr"></span><span class="mw-dot dy"></span><span class="mw-dot dg"></span></span>
-                    <span class="mw-title">~/websites.md</span>
+                    <span class="mw-title">websites.md</span>
+                    <span class="mw-x" aria-hidden="true">&#x2715;</span>
                 </div>
                 <div class="mw-body service-body">
                     <div class="svc-num">03 / Websites</div>
@@ -140,8 +151,19 @@
             </div>
         </div>
 
-        <div class="aside">
-            <strong>Whatever else, just ask.</strong> Phones, tablets, email troubles, smart TVs, backups, password managers. If I can help, I will. If it's not my thing, I'll tell you and point you somewhere good.
+        <div class="dock" role="toolbar" aria-label="Reopen a closed window">
+            <button class="dock-app dock-win" type="button" aria-label="Reopen Computers">
+                <span class="dock-icon" aria-hidden="true">💻</span>
+                <span class="dock-tip">computers.md</span>
+            </button>
+            <button class="dock-app dock-mac" type="button" aria-label="Reopen Networks">
+                <span class="dock-icon" aria-hidden="true">📶</span>
+                <span class="dock-tip">networks.md</span>
+            </button>
+            <button class="dock-app dock-nix" type="button" aria-label="Reopen Websites">
+                <span class="dock-icon" aria-hidden="true">🌐</span>
+                <span class="dock-tip">websites.md</span>
+            </button>
         </div>
     </div>
 </section>
@@ -235,6 +257,53 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     update();
+})();
+
+// Functioning dock for the three service windows. Click × on a window to
+// close it (animates + hides). Click the matching dock app to reopen.
+(function() {
+    var windows = Array.prototype.slice.call(document.querySelectorAll('.services .mac-window'));
+    var apps = Array.prototype.slice.call(document.querySelectorAll('.dock-app'));
+    if (!windows.length || windows.length !== apps.length) return;
+
+    windows.forEach(function(win, i) {
+        var app = apps[i];
+        // initial: window is open
+        app.classList.add('is-open');
+
+        // Find the OS-specific "close" button: red Mac dot, ✕ on Windows, × on Linux
+        var closeBtn = win.querySelector('.win-window .ctrl.close')
+            || win.querySelector('.nix-window .mw-x')
+            || win.querySelector(':scope > .mw-titlebar .mw-dot.dr')
+            || win.querySelector('.mw-dot.dr');
+
+        if (closeBtn) {
+            closeBtn.style.cursor = 'pointer';
+            closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!app.classList.contains('is-open')) return;
+                win.classList.add('is-closing');
+                app.classList.remove('is-open');
+                setTimeout(function() {
+                    win.classList.add('is-hidden');
+                    win.classList.remove('is-closing');
+                }, 280);
+            });
+        }
+
+        app.addEventListener('click', function() {
+            if (app.classList.contains('is-open')) {
+                win.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            win.classList.remove('is-hidden');
+            requestAnimationFrame(function() {
+                win.classList.add('is-opening');
+                app.classList.add('is-open');
+                setTimeout(function() { win.classList.remove('is-opening'); }, 360);
+            });
+        });
+    });
 })();
 
 // Email-arrow custom cursor — follows the mouse inside #contact, rotates to

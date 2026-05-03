@@ -376,88 +376,48 @@ section {
     color: rgba(195, 232, 141, 0.85);
 }
 
-/* Theme toggle in terminal titlebar */
-.term-theme-toggle {
-    margin-left: auto;
-    background: transparent;
-    border: 0;
-    padding: 4px;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.55);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3px;
-    transition: color 0.15s, background-color 0.15s;
-}
+/* Light mode terminal — follows OS preference (prefers-color-scheme: light) */
+@media (prefers-color-scheme: light) {
+    .term-card {
+        background: #ffffff;
+        border-color: rgba(0, 0, 0, 0.14);
+        box-shadow:
+            0 1px 1px rgba(0, 0, 0, 0.04),
+            0 8px 24px rgba(0, 0, 0, 0.12);
+    }
 
-.term-theme-toggle:hover,
-.term-theme-toggle:focus-visible {
-    color: var(--color-accent-light);
-    background: rgba(255, 255, 255, 0.08);
-}
+    .term-titlebar {
+        background: #ebebeb;
+        border-bottom-color: rgba(0, 0, 0, 0.08);
+        color: rgba(0, 0, 0, 0.55);
+    }
 
-.theme-icon {
-    width: 15px;
-    height: 15px;
-    display: block;
-}
+    .term-title {
+        color: #3a3a3a;
+    }
 
-.theme-icon-moon { display: none; }
+    .term-body {
+        color: rgba(20, 20, 20, 0.85);
+    }
 
-.term-card.is-light .theme-icon-sun { display: none; }
-.term-card.is-light .theme-icon-moon { display: block; }
+    .term-prompt-user { color: #2154a0; }
+    .term-prompt-host { color: rgba(40, 40, 40, 0.55); }
+    .term-prompt-path { color: #2c5f3f; }
 
-/* Light mode terminal */
-.term-card.is-light {
-    background: #faf6ec;
-    border-color: rgba(120, 95, 60, 0.28);
-    box-shadow:
-        0 1px 1px rgba(0, 0, 0, 0.04),
-        0 8px 24px rgba(80, 60, 30, 0.14);
-}
+    .tw-cmd {
+        color: #1a1a17;
+        border-right-color: #2c5f3f;
+    }
 
-.term-card.is-light .term-titlebar {
-    background: rgba(120, 95, 60, 0.08);
-    border-bottom-color: rgba(120, 95, 60, 0.18);
-    color: rgba(40, 30, 20, 0.6);
-}
+    .tw-strong { color: #2c5f3f; }
+    .tw-sub { color: rgba(40, 40, 40, 0.72); }
+    .tw-stack-key { color: #2154a0; }
+    .tw-loc { color: #b87a14; }
+    .tw-status { color: #7a3aa0; }
 
-.term-card.is-light .term-title {
-    color: #5a4a30;
-}
-
-.term-card.is-light .term-theme-toggle {
-    color: rgba(40, 30, 20, 0.55);
-}
-
-.term-card.is-light .term-theme-toggle:hover,
-.term-card.is-light .term-theme-toggle:focus-visible {
-    color: var(--color-primary-dark);
-    background: rgba(0, 0, 0, 0.05);
-}
-
-.term-card.is-light .term-body {
-    color: rgba(30, 26, 20, 0.85);
-}
-
-.term-card.is-light .term-prompt-user { color: #2154a0; }
-.term-card.is-light .term-prompt-host { color: rgba(40, 30, 20, 0.5); }
-.term-card.is-light .term-prompt-path { color: #2c5f3f; }
-
-.term-card.is-light .tw-cmd {
-    color: #1a1a17;
-    border-right-color: #2c5f3f;
-}
-
-.term-card.is-light .tw-strong { color: #2c5f3f; }
-.term-card.is-light .tw-sub { color: rgba(40, 30, 20, 0.7); }
-.term-card.is-light .tw-stack-key { color: #2154a0; }
-.term-card.is-light .tw-loc { color: #b87a14; }
-.term-card.is-light .tw-status { color: #7a3aa0; }
-
-.term-card.is-light .tw-cursor {
-    background: #2c5f3f;
+    .tw-cursor {
+        background: #2c5f3f;
+    }
 }
 
 .term-body {

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>V8 · Editorial Magazine Hero</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .variant-label {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #000;
+            color: #fff;
+            padding: 6px 12px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 999;
+            border-radius: 3px;
+            opacity: 0.8;
+        }
+
+        /* Hero — editorial cream canvas */
+        .hero-editorial {
+            background: #f7f3ec !important;
+            color: #1c1c1a;
+            min-height: auto;
+            padding: 80px 24px 100px;
+            position: relative;
+        }
+        .hero-editorial::before,
+        .hero-editorial::after { display: none !important; }
+
+        .hero-editorial .hero-content {
+            max-width: 880px;
+            margin: 0 auto;
+            text-align: left;
+            padding: 0;
+        }
+
+        /* Tracked monospace kicker */
+        .ed-kicker {
+            font-family: var(--font-mono, 'JetBrains Mono', monospace);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: #6b6a64;
+            margin: 0 0 48px 0;
+        }
+        .ed-kicker .ed-dot {
+            color: var(--color-accent, #c9a14a);
+            margin: 0 10px;
+        }
+
+        /* Giant serif headline */
+        .hero-editorial h1 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-weight: 400;
+            font-size: 68px;
+            line-height: 1.08;
+            letter-spacing: -0.015em;
+            color: #1c1c1a;
+            margin: 0 0 36px 0;
+            max-width: 14ch;
+        }
+        .hero-editorial h1 .ed-italic {
+            font-style: italic;
+            color: #2a3d2e;
+        }
+
+        /* Thin gold rule */
+        .ed-rule {
+            border: 0;
+            border-top: 1px solid var(--color-accent, #c9a14a);
+            width: 100%;
+            margin: 0 0 36px 0;
+            opacity: 0.8;
+        }
+
+        /* Body paragraph in serif */
+        .ed-body {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 19px;
+            line-height: 1.7;
+            color: #2a2a26;
+            max-width: 62ch;
+            margin: 0 0 44px 0;
+        }
+        .ed-body em {
+            font-style: italic;
+            color: #2a3d2e;
+        }
+        .ed-body strong {
+            font-weight: 600;
+            color: #1c1c1a;
+        }
+
+        /* CTA links — text + chevron */
+        .hero-editorial .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px 36px;
+            justify-content: flex-start;
+            margin-bottom: 56px;
+        }
+        .hero-editorial .cta-button {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            color: var(--color-primary-dark, #1f3a26) !important;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.005em;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: baseline;
+            gap: 8px;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        .hero-editorial .cta-button::after {
+            content: '\203A'; /* › */
+            font-size: 22px;
+            line-height: 1;
+            color: var(--color-accent, #c9a14a);
+            transition: transform 0.25s ease;
+            display: inline-block;
+        }
+        .hero-editorial .cta-button:hover {
+            color: #0f1f14 !important;
+        }
+        .hero-editorial .cta-button:hover::after {
+            transform: translateX(6px);
+        }
+        .hero-editorial .cta-button::before { display: none !important; }
+
+        /* Signed signature */
+        .ed-signature {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 17px;
+            color: #6b6a64;
+            text-align: right;
+            margin-top: 24px;
+            letter-spacing: 0.02em;
+        }
+
+        /* Tighten header on cream */
+        header {
+            background: #f7f3ec;
+            border-bottom: 1px solid rgba(28, 28, 26, 0.08);
+        }
+
+        /* Responsive */
+        @media (max-width: 720px) {
+            .hero-editorial {
+                padding: 56px 22px 72px;
+            }
+            .hero-editorial h1 {
+                font-size: 44px;
+                max-width: none;
+            }
+            .ed-body { font-size: 17px; }
+            .ed-kicker { font-size: 11px; letter-spacing: 0.22em; margin-bottom: 32px; }
+            .hero-editorial .cta-row { gap: 20px 28px; }
+            .hero-editorial .cta-button { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="variant-label">v8 · editorial magazine</div>
+
+    <header>
+        <nav>
+            <a href="#" class="nav-brand">Michael Gallo<span class="brand-accent">/dev</span></a>
+            <ul class="nav-links">
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">Stack</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero hero-editorial">
+            <div class="hero-content">
+                <p class="ed-kicker">
+                    Michael A. Gallo<span class="ed-dot">·</span>Software Developer<span class="ed-dot">·</span>2026
+                </p>
+
+                <h1>
+                    Hey, I'm Michael, and I build things mostly to <span class="ed-italic">figure out how they work.</span>
+                </h1>
+
+                <hr class="ed-rule">
+
+                <p class="ed-body">
+                    A developer in <strong>Northern Virginia</strong> with an <em>M.S. in Computer Science</em> from the University of Vermont (May 2025, 3.94 GPA, Dean's List), preceded by a B.S. in CS with a Math minor. I work mainly in <strong>TypeScript, Go, Rust, and Python</strong>, and I tend to learn a system by writing it from scratch before reaching for a library. Most recently I shipped <em>Charon</em>, a Go authentication microservice designed for 100,000+ users and backed by 123+ tests. I'm currently <strong>open to work</strong>, full-time roles or substantial freelance, and happy to talk about either.
+                </p>
+
+                <div class="cta-row">
+                    <a href="resume.pdf" class="cta-button cta-resume">View resume</a>
+                    <a href="mailto:michaelgallo.va@gmail.com" class="cta-button cta-email">Email me</a>
+                    <a href="https://calendly.com/michaelgallo/30min" class="cta-button cta-chat">Book a chat</a>
+                </div>
+
+                <p class="ed-signature">· M.G.</p>
+            </div>
+        </section>
+
+        <section class="about" style="padding: 60px 24px;">
+            <h2>About</h2>
+            <p style="color: var(--color-text-light);">(rest of page below, same as live)</p>
+        </section>
+    </main>
+</body>
+</html>

@@ -8,7 +8,7 @@
     <link rel="canonical" href="https://michaelgit.com/dev/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Montserrat:wght@400;600;700&family=Caveat:wght@500;700&family=Lora:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,11 +17,16 @@
     <header>
         <nav>
             <a href="/dev/" class="nav-brand">Michael Gallo<span class="brand-accent">/dev</span></a>
-            <ul class="nav-links">
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#stack">Stack</a></li>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+            <ul class="nav-links" id="nav-menu">
                 <li><a href="#about">About</a></li>
-                <li><a href="#connect">Connect</a></li>
+                <li><a href="#stack">Stack</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -29,15 +34,33 @@
     <main id="main">
         <section class="hero">
             <div class="hero-content">
-                <div class="terminal" role="presentation">
-                    <span class="prompt">$</span><span class="terminal-cmd">whoami --tags</span>
-                    <span class="chip">software-developer</span>
-                    <span class="chip chip-active">open-to-work</span>
-                    <span class="chip">northern-virginia</span>
-                </div>
-
                 <h1>Hey, I'm Michael.</h1>
-                <p class="hero-lead">M.S. in Computer Science (UVM, 2025). I build things in TypeScript, Go, Rust, and Python, usually because I want to actually understand how something works.</p>
+
+                <div class="term-card" aria-label="Animated terminal showing about info">
+                    <div class="term-titlebar">
+                        <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+                        <span class="term-title">michael@dev ~ /home/michael</span>
+                    </div>
+                    <div class="term-body">
+                        <span class="term-line tw-prompt-1">
+                            <span class="term-prompt-user">michael@dev</span><span class="term-prompt-host">:</span><span class="term-prompt-path">~</span><span class="term-prompt-host">$</span>
+                            <span class="tw-cmd-wrap"><span class="tw-cmd">cat ./about.txt</span></span>
+                        </span>
+
+                        <span class="tw-out tw-out-1"><span class="tw-strong">michael gallo, software developer</span></span>
+                        <span class="tw-out tw-out-2"><span class="tw-sub">M.S. CS, UVM (3.94 GPA, 2025)</span></span>
+                        <span class="tw-out tw-out-3"></span>
+                        <span class="tw-out tw-out-4">builds in <span class="tw-stack-key">TypeScript</span>, <span class="tw-stack-key">Go</span>, <span class="tw-stack-key">Rust</span>, <span class="tw-stack-key">Python</span></span>
+                        <span class="tw-out tw-out-5">most recent: <span class="tw-strong">Charon</span>, auth microservice in Go (132 tests)</span>
+                        <span class="tw-out tw-out-6"></span>
+                        <span class="tw-out tw-out-7"><span class="tw-loc">northern virginia</span>. <span class="tw-status">open to work.</span></span>
+
+                        <span class="term-line tw-prompt-2">
+                            <span class="term-prompt-user">michael@dev</span><span class="term-prompt-host">:</span><span class="term-prompt-path">~</span><span class="term-prompt-host">$</span>
+                            <span class="tw-cursor"></span>
+                        </span>
+                    </div>
+                </div>
 
                 <div class="cta-row">
                     <a href="resume.pdf" target="_blank" rel="noopener" class="cta-button cta-resume">
@@ -57,12 +80,29 @@
         </section>
 
         <section id="about" class="about">
-            <h2>About</h2>
-            <div class="about-content">
-                <p>At the age of 10, a close friend lent me his copy of <a href="https://www.betterworldbooks.com/product/detail/head-first-html-and-css-a-learners-guide-to-creating-standards-based-web-pages-9780596159900" target="_blank" rel="noopener"><em>Head First HTML and CSS</em></a>. I never gave it back, in spirit. Every spare hour after that went to StackOverflow threads, coding blogs, library books, online courses, anything I could get my hands on. The computer science teachers feared my questions in the classroom.</p>
-                <p>Fifteen-ish years later the projects pile is still growing. A flashcard site in SQL, TypeScript, and Python with procedurally-generated audio through AWS Polly. A password manager in Rust (encryption written from scratch because I wanted to actually understand it), and an auth system in Go.</p>
-                <p>After my M.S. Computer Science at UVM (2025) and B.S. with a math minor, I landed at ACTE for a stretch I'm grateful for. If anything below catches your eye (or even if you're just bored), my inbox is open.</p>
-            </div>
+            <h2 class="sr-only">About</h2>
+            <article class="letter-card" aria-label="A short letter introduction">
+                <div class="letter-head">
+                    <div class="head-name">Michael A. Gallo</div>
+                    <div>michaelgallo.va@gmail.com</div>
+                    <div>Northern Virginia</div>
+                    <div class="head-date">May 3, 2026</div>
+                </div>
+
+                <div class="letter-subject">About</div>
+
+                <div class="letter-salutation">Hi there,</div>
+
+                <div class="letter-body">
+                    <p>I'm Michael! At the age of 10 a close friend lent me his copy of <a href="https://www.betterworldbooks.com/product/detail/head-first-html-and-css-a-learners-guide-to-creating-standards-based-web-pages-9780596159900" target="_blank" rel="noopener"><em>Head First HTML and CSS</em></a>. I never gave it back, in spirit. Every spare hour after that went to StackOverflow threads, coding blogs, library books, online courses, anything I could get my hands on. The computer science teachers feared my questions in the classroom...😅</p>
+                    <p>Fifteen-ish years later the projects pile is still growing. A flashcard site in SQL, TypeScript, and Python with procedurally-generated audio through AWS Polly. A password manager in Rust (encryption written from scratch because I wanted to actually understand it), and an auth system in Go.</p>
+                    <p>After my M.S. Computer Science at UVM (2025) and B.S. with a math minor, I landed at ACTE for a stretch I'm grateful for. If anything below catches your eye (or even if you're just bored), my inbox is open!</p>
+                </div>
+
+                <div class="letter-signoff">Best,</div>
+                <div class="letter-signature">Michael Gallo</div>
+                <div class="letter-printed-name">Michael A. Gallo / Software Developer</div>
+            </article>
         </section>
 
         <section id="stack" class="stack">
@@ -82,7 +122,7 @@
                     <span class="project-tag">Featured</span>
                 </div>
                 <p class="project-tech"><code>Go</code> <code>PostgreSQL</code> <code>Redis</code> <code>Docker</code></p>
-                <p>An auth microservice in Go. Stateless session-based, built for 100K+ concurrent users. Email/password and Google OAuth with PKCE + OIDC, Argon2id, CSRF, rate limiting, Cloudflare Turnstile. Token issuance, rotation, refresh, the full flow, with 123+ tests across unit, integration, and e2e. <strong>If you're hiring, please start here!</strong></p>
+                <p>An auth microservice in Go. Stateless session-based, built for 100K+ concurrent users. Email/password and Google OAuth with PKCE + OIDC, Argon2id, CSRF, rate limiting, Cloudflare Turnstile. Token issuance, rotation, refresh, the full flow, with 132 tests across unit, integration, and e2e. <strong>If you're hiring, please start here!</strong></p>
                 <div class="project-links">
                     <a href="https://github.com/MGallo-Code/Charon" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
                 </div>
@@ -119,29 +159,35 @@
             </div>
         </section>
 
-        <section id="connect" class="connect">
-            <h2>Connect</h2>
+        <section id="contact" class="contact">
+            <h2>Contact</h2>
             <p>Inbox is open, calendar is open. Pick whichever's easier.</p>
-            <div class="connect-grid">
-                <a href="mailto:michaelgallo.va@gmail.com" class="connect-card">
-                    <span class="connect-label">Email</span>
-                    <span class="connect-value">michaelgallo.va@gmail.com</span>
+
+            <div class="contact-featured">
+                <span class="contact-label">Email</span>
+                <a href="mailto:michaelgallo.va@gmail.com" class="contact-email-value">michaelgallo.va@gmail.com</a>
+                <button class="copy-btn" data-copy="michaelgallo.va@gmail.com" type="button" aria-label="Copy email address to clipboard">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <span class="copy-text">Copy</span>
+                </button>
+            </div>
+
+            <div class="contact-grid">
+                <a href="https://linkedin.com/in/michael-a-gallo" target="_blank" rel="noopener" class="contact-card">
+                    <span class="contact-label">LinkedIn</span>
+                    <span class="contact-value">michael-a-gallo</span>
                 </a>
-                <a href="https://linkedin.com/in/michael-a-gallo" target="_blank" rel="noopener" class="connect-card">
-                    <span class="connect-label">LinkedIn</span>
-                    <span class="connect-value">michael-a-gallo</span>
+                <a href="https://calendly.com/michaelgallo/30min" target="_blank" rel="noopener" class="contact-card">
+                    <span class="contact-label">Calendly</span>
+                    <span class="contact-value">Book a 30-min chat</span>
                 </a>
-                <a href="https://calendly.com/michaelgallo/30min" target="_blank" rel="noopener" class="connect-card">
-                    <span class="connect-label">Calendly</span>
-                    <span class="connect-value">Book a 30-min chat</span>
+                <a href="https://github.com/MGallo-Code" target="_blank" rel="noopener" class="contact-card">
+                    <span class="contact-label">GitHub</span>
+                    <span class="contact-value">@MGallo-Code</span>
                 </a>
-                <a href="https://github.com/MGallo-Code" target="_blank" rel="noopener" class="connect-card">
-                    <span class="connect-label">GitHub</span>
-                    <span class="connect-value">@MGallo-Code</span>
-                </a>
-                <a href="resume.pdf" target="_blank" rel="noopener" class="connect-card">
-                    <span class="connect-label">Resume</span>
-                    <span class="connect-value">PDF</span>
+                <a href="resume.pdf" target="_blank" rel="noopener" class="contact-card">
+                    <span class="contact-label">Resume</span>
+                    <span class="contact-value">PDF</span>
                 </a>
             </div>
         </section>
@@ -151,5 +197,52 @@
         <p>&copy; 2026 Michael Gallo</p>
         <p class="footer-secondary"><a href="/">← Tech help in Arlington / Falls Church</a></p>
     </footer>
+
+    <script>
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const text = btn.dataset.copy;
+            const label = btn.querySelector('.copy-text');
+            const original = label.textContent;
+            try {
+                await navigator.clipboard.writeText(text);
+                label.textContent = 'Copied!';
+                btn.classList.add('copied');
+            } catch (err) {
+                label.textContent = 'Press Cmd+C';
+            }
+            setTimeout(() => {
+                label.textContent = original;
+                btn.classList.remove('copied');
+            }, 1600);
+        });
+    });
+
+    (function() {
+        const toggle = document.querySelector('.nav-toggle');
+        const menu = document.getElementById('nav-menu');
+        if (!toggle || !menu) return;
+
+        const setOpen = (open) => {
+            toggle.setAttribute('aria-expanded', String(open));
+            menu.classList.toggle('is-open', open);
+        };
+
+        toggle.addEventListener('click', () => {
+            const open = toggle.getAttribute('aria-expanded') === 'true';
+            setOpen(!open);
+        });
+
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => setOpen(false));
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+                setOpen(false);
+            }
+        });
+    })();
+    </script>
 </body>
 </html>

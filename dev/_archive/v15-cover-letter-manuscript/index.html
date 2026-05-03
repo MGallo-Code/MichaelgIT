@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>V15 · Cover Letter Manuscript</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Montserrat:wght@400;600;700&family=Caveat:wght@500;700&family=Lora:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .variant-label {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #000;
+            color: #fff;
+            padding: 6px 12px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 999;
+            border-radius: 3px;
+            opacity: 0.8;
+        }
+
+        /* ---- Page background: warm cream + faint ruled paper ---- */
+        .hero-letter {
+            background-color: #f5efe2 !important;
+            background-image:
+                /* faint horizontal ruling */
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0px,
+                    transparent 31px,
+                    rgba(120, 95, 60, 0.05) 32px
+                ),
+                /* warm vignette + grain feel */
+                radial-gradient(
+                    ellipse at 50% 0%,
+                    rgba(255, 248, 230, 0.6) 0%,
+                    rgba(245, 239, 226, 0) 60%
+                );
+            padding: 80px 24px 96px !important;
+            min-height: auto;
+        }
+        .hero-letter::after { display: none !important; }
+
+        .hero-letter .hero-content {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0;
+            text-align: left;
+        }
+
+        /* ---- The letter card ---- */
+        .letter-card {
+            background: #fffdf7;
+            border: 1px solid rgba(120, 95, 60, 0.12);
+            border-radius: 2px;
+            padding: 64px 72px 56px;
+            box-shadow:
+                0 1px 1px rgba(0, 0, 0, 0.04),
+                0 6px 14px rgba(80, 60, 30, 0.08),
+                0 22px 50px rgba(60, 45, 20, 0.12);
+            position: relative;
+            color: #2a2620;
+        }
+
+        /* tiny perforation/clip detail at top center */
+        .letter-card::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 48px;
+            height: 14px;
+            background:
+                linear-gradient(180deg, rgba(120, 100, 70, 0.45), rgba(120, 100, 70, 0.15));
+            border-radius: 2px 2px 6px 6px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+            opacity: 0.7;
+        }
+
+        /* ---- Letterhead ---- */
+        .letter-head {
+            font-family: var(--font-mono, 'JetBrains Mono', monospace);
+            font-size: 13px;
+            line-height: 1.7;
+            color: #4a3f2e;
+            margin-bottom: 28px;
+        }
+        .letter-head .head-name {
+            font-weight: 600;
+            color: #2a2620;
+            font-size: 14px;
+        }
+        .letter-head .head-date {
+            margin-top: 14px;
+            color: #6a5d47;
+        }
+
+        .letter-subject {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #5a4a30;
+            border-top: 1px solid rgba(120, 95, 60, 0.18);
+            border-bottom: 1px solid rgba(120, 95, 60, 0.18);
+            padding: 10px 0;
+            margin-bottom: 26px;
+        }
+
+        .letter-salutation {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #2a2620;
+            margin-bottom: 18px;
+        }
+
+        .letter-body p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.85;
+            color: #2a2620;
+            margin: 0 0 18px;
+        }
+        .letter-body em {
+            font-family: 'Lora', Georgia, serif;
+            font-style: italic;
+            font-size: 15px;
+            color: #3a3026;
+        }
+        .letter-body strong {
+            font-weight: 600;
+            color: #1f1c17;
+        }
+
+        .letter-signoff {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #2a2620;
+            margin-top: 28px;
+            margin-bottom: 6px;
+        }
+        .letter-signature {
+            font-family: 'Caveat', cursive;
+            font-size: 32px;
+            font-weight: 500;
+            color: #1a3d2c;
+            transform: rotate(-3deg);
+            transform-origin: left center;
+            display: inline-block;
+            margin: 4px 0 4px 8px;
+            line-height: 1;
+        }
+        .letter-printed-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #6a5d47;
+            margin-top: 10px;
+            letter-spacing: 0.04em;
+        }
+
+        /* ---- CTAs below letter, muted to match paper ---- */
+        .hero-letter .cta-row {
+            justify-content: center;
+            margin-top: 48px;
+            gap: 14px;
+            flex-wrap: wrap;
+            display: flex;
+        }
+        .hero-letter .cta-button {
+            background: #fffdf7;
+            border: 1px solid rgba(120, 95, 60, 0.35);
+            color: #3a3026;
+            box-shadow: 0 2px 6px rgba(80, 60, 30, 0.08);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+        }
+        .hero-letter .cta-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(80, 60, 30, 0.14);
+            background: #fff;
+        }
+        .hero-letter .cta-resume {
+            background: #1a3d2c;
+            color: #f5efe2;
+            border-color: #1a3d2c;
+        }
+        .hero-letter .cta-resume:hover {
+            background: #235040;
+            color: #fff;
+        }
+
+        /* ---- Mobile ---- */
+        @media (max-width: 640px) {
+            .letter-card {
+                padding: 40px 28px 36px;
+            }
+            .hero-letter {
+                padding: 48px 16px 64px !important;
+            }
+            .letter-signature {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="variant-label">v15 · cover letter manuscript</div>
+
+    <header>
+        <nav>
+            <a href="#" class="nav-brand">Michael Gallo<span class="brand-accent">/dev</span></a>
+            <ul class="nav-links">
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">Stack</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero hero-letter">
+            <div class="hero-content">
+                <article class="letter-card" aria-label="Cover letter">
+                    <div class="letter-head">
+                        <div class="head-name">Michael A. Gallo</div>
+                        <div>michaelgallo.va@gmail.com</div>
+                        <div>Northern Virginia</div>
+                        <div class="head-date">May 3, 2026</div>
+                    </div>
+
+                    <div class="letter-subject">Re: Software Developer</div>
+
+                    <div class="letter-salutation">Dear Hiring Manager,</div>
+
+                    <div class="letter-body">
+                        <p>I picked up <em>Head First HTML and CSS</em> at ten years old and never really gave it back, in spirit. Fifteen years later, the projects pile is still growing, and the curiosity that started with a beginner's book has turned into a habit of building things from scratch just to see how they actually work.</p>
+
+                        <p>I finished my <strong>M.S. in Computer Science at UVM in 2025</strong> with a 3.94 GPA, after a B.S. in CS with a Math minor. Most recently I shipped <strong>Charon</strong>, an authentication microservice in Go with 123+ tests and Argon2id password hashing. Day to day I work across <strong>TypeScript, Go, Rust, and Python</strong>, and I tend to reach for whichever one fits the problem rather than the resume.</p>
+
+                        <p>I'm currently open to work in Northern Virginia, on site or remote. If anything in my portfolio catches your eye, I'd love to hear from you.</p>
+                    </div>
+
+                    <div class="letter-signoff">Sincerely,</div>
+                    <div class="letter-signature">Michael A. Gallo</div>
+                    <div class="letter-printed-name">Michael A. Gallo / Software Developer</div>
+                </article>
+
+                <div class="cta-row">
+                    <a href="resume.pdf" class="cta-button cta-resume">View resume</a>
+                    <a href="mailto:michaelgallo.va@gmail.com" class="cta-button cta-email">Email me</a>
+                    <a href="https://calendly.com/michaelgallo/30min" class="cta-button cta-chat">Book a chat</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" style="padding: 60px 24px;">
+            <h2>About</h2>
+            <p style="color: var(--color-text-light);">(rest of page below — same as live)</p>
+        </section>
+    </main>
+</body>
+</html>

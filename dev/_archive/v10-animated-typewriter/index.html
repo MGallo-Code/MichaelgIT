@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>V10 · Animated Typewriter Hero</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .variant-label {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #000;
+            color: #fff;
+            padding: 6px 12px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 999;
+            border-radius: 3px;
+            opacity: 0.8;
+        }
+
+        /* ---------- Hero shell ---------- */
+        .hero-tw {
+            background: linear-gradient(to bottom, var(--color-primary-dark) 0%, #0d1f15 100%) !important;
+        }
+        .hero-tw::after { display: none !important; }
+
+        .hero-tw .hero-content {
+            text-align: center;
+            padding: 80px 24px;
+            max-width: 760px;
+        }
+
+        .hero-tw h1 {
+            font-size: 36px !important;
+            margin-bottom: 28px !important;
+        }
+
+        /* ---------- Terminal window ---------- */
+        .term-card {
+            background: #0d1612;
+            border: 1px solid rgba(82, 183, 136, 0.3);
+            border-radius: 10px;
+            font-family: var(--font-mono, 'JetBrains Mono', monospace);
+            font-size: 14px;
+            box-shadow: 0 16px 50px rgba(0,0,0,0.4);
+            overflow: hidden;
+            text-align: left;
+            margin: 0 auto 36px;
+            max-width: 720px;
+        }
+        .term-titlebar {
+            background: rgba(0,0,0,0.45);
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .term-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .term-dot:nth-child(1) { background: #ff5f56; }
+        .term-dot:nth-child(2) { background: #ffbd2e; }
+        .term-dot:nth-child(3) { background: #27c93f; }
+        .term-title {
+            margin-left: 10px;
+            color: rgba(195, 232, 141, 0.85);
+        }
+
+        .term-body {
+            padding: 22px 24px 26px;
+            color: rgba(255,255,255,0.88);
+            line-height: 1.7;
+            min-height: 280px;
+        }
+
+        .term-line {
+            display: block;
+            white-space: nowrap;
+        }
+
+        .term-prompt-user { color: #82aaff; }
+        .term-prompt-host { color: rgba(255,255,255,0.55); }
+        .term-prompt-path { color: #c3e88d; }
+        .term-prompt-tip  { color: rgba(255,255,255,0.55); }
+
+        /* ---------- Step 1: initial prompt fades in ---------- */
+        .tw-prompt-1 {
+            opacity: 0;
+            animation: fadeIn 0.3s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        /* ---------- Step 2: command "cat ./about.txt" types ---------- */
+        /* command length = 14 chars: c a t [sp] . / a b o u t . t x t -> 15 chars actually */
+        /* "cat ./about.txt" = 15 chars */
+        .tw-cmd-wrap {
+            display: inline-block;
+            vertical-align: bottom;
+            position: relative;
+        }
+        .tw-cmd {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            vertical-align: bottom;
+            width: 0;
+            border-right: 2px solid #c3e88d;
+            color: rgba(255,255,255,0.95);
+            opacity: 0;
+            animation:
+                tw-cmd-show 0s linear forwards,
+                tw-cmd-type 1.5s steps(15, end) forwards,
+                tw-cmd-cursor-off 0s linear forwards;
+            animation-delay: 0.55s, 0.55s, 2.1s;
+        }
+        @keyframes tw-cmd-show {
+            to { opacity: 1; }
+        }
+        @keyframes tw-cmd-type {
+            from { width: 0; }
+            to   { width: 15ch; }
+        }
+        @keyframes tw-cmd-cursor-off {
+            to { border-right-color: transparent; }
+        }
+
+        /* ---------- Step 3: output lines stagger in ---------- */
+        .tw-out {
+            opacity: 0;
+            animation: fadeUp 0.35s ease forwards;
+            display: block;
+            white-space: pre-wrap;
+        }
+        .tw-out-1 { animation-delay: 2.25s; }
+        .tw-out-2 { animation-delay: 2.55s; }
+        .tw-out-3 { animation-delay: 3.05s; color: rgba(255,255,255,0.6); height: 0.6em; }
+        .tw-out-4 { animation-delay: 3.35s; }
+        .tw-out-5 { animation-delay: 3.75s; }
+        .tw-out-6 { animation-delay: 4.25s; color: rgba(255,255,255,0.6); height: 0.6em; }
+        .tw-out-7 { animation-delay: 4.55s; }
+
+        .tw-strong { color: #c3e88d; font-weight: 600; }
+        .tw-sub    { color: rgba(255,255,255,0.7); }
+        .tw-stack-key { color: #82aaff; }
+        .tw-loc    { color: #ffcb6b; }
+        .tw-status { color: #c792ea; }
+
+        /* ---------- Step 4: final prompt with permanent blinking cursor ---------- */
+        .tw-prompt-2 {
+            opacity: 0;
+            animation: fadeIn 0.3s ease forwards;
+            animation-delay: 4.95s;
+        }
+        .tw-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1em;
+            background: #c3e88d;
+            margin-left: 4px;
+            vertical-align: text-bottom;
+            animation: blink 1s steps(2) infinite;
+        }
+
+        /* ---------- Keyframes ---------- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(4px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50%      { opacity: 0; }
+        }
+
+        .hero-tw .cta-row { justify-content: center; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .tw-prompt-1, .tw-cmd, .tw-out, .tw-prompt-2 {
+                opacity: 1 !important;
+                animation: none !important;
+                width: auto !important;
+                border-right-color: transparent !important;
+            }
+            .tw-cursor { animation: none; opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="variant-label">v10 · animated typewriter</div>
+
+    <header>
+        <nav>
+            <a href="#" class="nav-brand">Michael Gallo<span class="brand-accent">/dev</span></a>
+            <ul class="nav-links">
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">Stack</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero hero-tw">
+            <div class="hero-content">
+                <h1>Hey, I'm Michael.</h1>
+
+                <div class="term-card" aria-label="Animated terminal showing about info">
+                    <div class="term-titlebar">
+                        <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+                        <span class="term-title">michael@dev ~ /home/michael</span>
+                    </div>
+                    <div class="term-body">
+                        <span class="term-line tw-prompt-1">
+                            <span class="term-prompt-user">michael@dev</span><span class="term-prompt-host">:</span><span class="term-prompt-path">~</span><span class="term-prompt-host">$</span>
+                            <span class="tw-cmd-wrap"><span class="tw-cmd">cat ./about.txt</span></span>
+                        </span>
+
+                        <span class="tw-out tw-out-1"><span class="tw-strong">michael gallo, software developer</span></span>
+                        <span class="tw-out tw-out-2"><span class="tw-sub">M.S. CS, UVM (3.94 GPA, 2025)</span></span>
+                        <span class="tw-out tw-out-3"></span>
+                        <span class="tw-out tw-out-4">builds in <span class="tw-stack-key">TypeScript</span>, <span class="tw-stack-key">Go</span>, <span class="tw-stack-key">Rust</span>, <span class="tw-stack-key">Python</span></span>
+                        <span class="tw-out tw-out-5">most recent: <span class="tw-strong">Charon</span>, auth microservice in Go (123+ tests)</span>
+                        <span class="tw-out tw-out-6"></span>
+                        <span class="tw-out tw-out-7"><span class="tw-loc">northern virginia</span>. <span class="tw-status">open to work.</span></span>
+
+                        <span class="term-line tw-prompt-2">
+                            <span class="term-prompt-user">michael@dev</span><span class="term-prompt-host">:</span><span class="term-prompt-path">~</span><span class="term-prompt-host">$</span>
+                            <span class="tw-cursor"></span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="cta-row">
+                    <a href="resume.pdf" class="cta-button cta-resume">View resume</a>
+                    <a href="mailto:michaelgallo.va@gmail.com" class="cta-button cta-email">Email me</a>
+                    <a href="https://calendly.com/michaelgallo/30min" class="cta-button cta-chat">Book a chat</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" style="padding: 60px 24px;">
+            <h2>About</h2>
+            <p style="color: var(--color-text-light);">(rest of page below, same as live)</p>
+        </section>
+    </main>
+</body>
+</html>

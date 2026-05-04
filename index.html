@@ -18,7 +18,10 @@
 
 <!-- HERO -->
 <section class="hero" aria-label="Tech help you can trust">
-    <img class="hero-img" src="pink-lake.jpg" alt="">
+    <picture>
+        <source srcset="pink-lake.webp" type="image/webp">
+        <img class="hero-img" src="pink-lake.jpg" alt="" fetchpriority="high">
+    </picture>
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
@@ -67,8 +70,10 @@
             <div class="mw-body">
                 <div class="about-grid">
                     <div class="about-photo-wrap">
-                        <img class="about-photo" src="profile.jpg" alt="Michael Gallo portrait">
-                        <span class="about-photo-tag">M.G.</span>
+                        <picture>
+                            <source srcset="profile.webp" type="image/webp">
+                            <img class="about-photo" src="profile.jpg" alt="Michael Gallo portrait" loading="lazy" decoding="async">
+                        </picture>
                         <div class="about-photo-credit">© M. GALLO · WASHINGTON SQ., NYC '25</div>
                     </div>
                     <div class="about-body">
@@ -99,7 +104,10 @@
 
 <!-- DIVIDER -->
 <section class="divider" aria-hidden="true">
-    <img src="ivy-courtyard.jpg" alt="">
+    <picture>
+        <source srcset="ivy-courtyard.webp" type="image/webp">
+        <img src="ivy-courtyard.jpg" alt="" loading="lazy" decoding="async">
+    </picture>
     <div class="divider-overlay"></div>
     <p class="divider-quote">"I want you to feel comfortable asking the question, no matter how small it sounds."</p>
     <div class="credit credit-light">© M.GALLO · CHICAGO '25</div>

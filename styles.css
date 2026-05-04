@@ -456,7 +456,7 @@ section:focus, section:focus-visible { outline: none; }
     display: flex; align-items: center; gap: 8px;
 }
 .mw-lock { color: var(--green); font-size: 10px; }
-.mw-proto { opacity: 0.6; }
+.mw-proto { opacity: 0.85; }
 
 .mw-body {
     background: #fdfcf8;
@@ -478,11 +478,18 @@ section:focus, section:focus-visible { outline: none; }
 }
 .about-photo-wrap:hover { transform: translateY(-2px); }
 
+/* The <picture> wrapper needs to be the flex item that stretches; otherwise
+   the inner <img> only gets its intrinsic size and the photo collapses. */
+.about-photo-wrap picture {
+    display: block;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+}
+
 .about-photo {
     width: 100%;
     height: 100%;
-    flex: 1 1 auto;
-    min-height: 0;
     object-fit: cover;
     object-position: 41% 20%;
     border-radius: 2px;

@@ -50,7 +50,7 @@
 <section class="about" id="about" tabindex="-1" aria-label="About Michael">
     <div class="container">
         <div class="eyebrow">About</div>
-        <h2 class="about-h">Hi, I'm <em>Michael.</em></h2>
+        <h2 class="about-h">Hi, I'm <em>Michael!</em></h2>
 
         <div class="mac-window about-window">
             <div class="mw-titlebar">
@@ -220,35 +220,39 @@
 <!-- CONTACT -->
 <section class="contact" id="contact" aria-label="Contact">
     <div class="container">
-        <div class="contact-grid">
-            <div>
-                <div class="eyebrow">Get In Touch</div>
-                <h2 class="section-h">Let's sort it out.</h2>
-                <p class="contact-lead">Send a quick note describing what's going on. I usually reply same day, and the first conversation is always free.</p>
-                <a href="mailto:michael@gallocoding.com" class="btn-dark email-link">Email Michael <span aria-hidden="true">→</span></a>
+        <div class="eyebrow">Get In Touch</div>
+        <h2 class="section-h">Let's sort it out!</h2>
+        <p class="contact-lead">Send a quick note describing what's going on. I usually reply same day, and the first conversation is always free.</p>
+
+        <div class="vs-card">
+            <div class="vs-row">
+                <span class="vs-icon" aria-hidden="true">✉</span>
+                <span class="vs-key">Email</span>
+                <span class="vs-val"><button type="button" class="copy-email" data-email="michael@gallocoding.com" aria-label="Copy email address to clipboard">michael@gallocoding.com</button></span>
+                <button type="button" class="vs-action copy-email" data-email="michael@gallocoding.com" aria-label="Copy email address to clipboard">Copy <span class="arr" aria-hidden="true">⧉</span></button>
             </div>
-            <div class="contact-block">
-                <div class="contact-item">
-                    <div class="ci-label">Email</div>
-                    <div class="ci-val ci-big">
-                        <button type="button" class="copy-email" data-email="michael@gallocoding.com" aria-label="Copy email address to clipboard">
-                            michael@gallocoding.com
-                            <span class="copy-hint" aria-hidden="true">Click to copy</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="ci-label">Phone</div>
-                    <div class="ci-val ci-big"><a href="tel:+15712963831">(571) 296-3831</a></div>
-                </div>
-                <div class="contact-item">
-                    <div class="ci-label">Schedule</div>
-                    <div class="ci-val ci-big"><a href="https://calendly.com/michaelgallo/30min" target="_blank" rel="noopener">Book a free 30-min chat <span aria-hidden="true">↗</span></a></div>
-                </div>
-                <div class="contact-item">
-                    <div class="ci-label">Service Area</div>
-                    <div class="ci-val ci-area">Arlington · Falls Church · Northern Virginia</div>
-                </div>
+            <div class="vs-row">
+                <span class="vs-icon" aria-hidden="true">☎</span>
+                <span class="vs-key">Phone</span>
+                <span class="vs-val"><a href="tel:+15712963831">(571) 296‑3831</a></span>
+                <a href="tel:+15712963831" class="vs-action">Call <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+            <div class="vs-row">
+                <span class="vs-icon" aria-hidden="true">🗓</span>
+                <span class="vs-key">Schedule</span>
+                <span class="vs-val"><a href="https://calendly.com/michaelgallo/30min" target="_blank" rel="noopener">Free 30‑min chat</a></span>
+                <a href="https://calendly.com/michaelgallo/30min" target="_blank" rel="noopener" class="vs-action">Book <span class="arr" aria-hidden="true">↗</span></a>
+            </div>
+            <div class="vs-row">
+                <span class="vs-icon" aria-hidden="true">📍</span>
+                <span class="vs-key">Area</span>
+                <span class="vs-val">Arlington · Falls Church · N. Virginia</span>
+                <span></span>
+            </div>
+
+            <div class="vs-foot">
+                <span class="vs-foot-text">— Or, just compose a note. —</span>
+                <a href="mailto:michael@gallocoding.com" class="vs-foot-cta email-link">Email Michael <span aria-hidden="true">→</span></a>
             </div>
         </div>
     </div>
@@ -285,26 +289,36 @@
     update();
 })();
 
-// Click-to-copy email button (the long display version in the contact items).
-// The dark "Email Michael →" CTA on the left still opens the mail client.
-(function() {
-    var btn = document.querySelector('.copy-email');
-    if (!btn) return;
+// Click-to-copy: any .copy-email button (the email value in the row, AND the
+// dark "Copy" CTA pill). Both share data-email; clicking either copies and
+// briefly swaps the button's label to "Copied!" before reverting.
+document.querySelectorAll('.copy-email').forEach(function(btn) {
+    // Prefer an explicit .copy-hint span if the button has one; otherwise
+    // grab the first non-empty text node so bare-text buttons (like the
+    // value cell that just contains "michael@gallocoding.com") still get
+    // the feedback swap.
     var hint = btn.querySelector('.copy-hint');
-    var defaultText = hint ? hint.textContent : 'Click to copy';
+    var labelNode = null;
+    if (!hint) {
+        for (var i = 0; i < btn.childNodes.length; i++) {
+            var n = btn.childNodes[i];
+            if (n.nodeType === 3 && n.textContent.trim()) { labelNode = n; break; }
+        }
+    }
+    var defaultText = hint ? hint.textContent
+                            : (labelNode ? labelNode.textContent : '');
     btn.addEventListener('click', function() {
         var email = btn.dataset.email || btn.textContent.trim();
         var done = function() {
             if (hint) hint.textContent = 'Copied!';
-            btn.classList.add('is-copied');
+            else if (labelNode) labelNode.textContent = 'Copied! ';
             setTimeout(function() {
-                btn.classList.remove('is-copied');
                 if (hint) hint.textContent = defaultText;
+                else if (labelNode) labelNode.textContent = defaultText;
             }, 1800);
         };
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(email).then(done).catch(function() {
-                // Fallback: select the text so the user can Cmd+C
                 var range = document.createRange();
                 range.selectNodeContents(btn);
                 var sel = window.getSelection();
@@ -312,7 +326,6 @@
                 sel.addRange(range);
             });
         } else {
-            // Old-school fallback: select text
             var range = document.createRange();
             range.selectNodeContents(btn);
             var sel = window.getSelection();
@@ -320,7 +333,7 @@
             sel.addRange(range);
         }
     });
-})();
+});
 
 // Lock the services grid height once the page has laid out, so the dock
 // below it doesn't jump when windows are minimized/closed/restored.
@@ -491,24 +504,25 @@
     });
 })();
 
-// Email-arrow custom cursor — follows the mouse inside #contact, rotates to
-// point at the primary email button. Skipped on touch devices.
+// Email-arrow custom cursor — visible only in the cream area around the
+// contact card, rotated to point at the card's geometric center. Hides
+// the moment the mouse crosses onto the card itself (system pointer takes
+// over there). Skipped on touch devices.
 (function() {
     if (window.matchMedia('(hover: none)').matches) return;
     var contact = document.getElementById('contact');
     if (!contact) return;
-    var emailBtn = contact.querySelector('.email-link');
-    if (!emailBtn) return;
+    var stack = contact.querySelector('.vs-card');
+    if (!stack) return;
 
     var cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
-    // U+FE0E (Variation Selector-15) tells the browser to render the glyph as
-    // text, not as an emoji. Without it, Safari sometimes upgrades ➜ to a
-    // chunky color-emoji version.
+    // U+FE0E (Variation Selector-15) keeps Safari from upgrading ➜ to a
+    // color emoji — render as a text glyph so Chrome and Safari agree.
     cursor.textContent = '➜︎';
     document.body.appendChild(cursor);
 
-    var inContact = false, overBtn = false;
+    var inContact = false, overCard = false;
 
     contact.addEventListener('mouseenter', function() { inContact = true; });
     contact.addEventListener('mouseleave', function() {
@@ -516,13 +530,22 @@
         cursor.style.opacity = '0';
     });
 
+    stack.addEventListener('mouseenter', function() {
+        overCard = true;
+        cursor.style.opacity = '0';
+    });
+    stack.addEventListener('mouseleave', function() {
+        overCard = false;
+        cursor.style.opacity = '1';
+    });
+
     contact.addEventListener('mousemove', function(e) {
         if (!inContact) return;
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
-        cursor.style.opacity = overBtn ? '0' : '1';
-        if (!overBtn) {
-            var r = emailBtn.getBoundingClientRect();
+        cursor.style.opacity = overCard ? '0' : '1';
+        if (!overCard) {
+            var r = stack.getBoundingClientRect();
             var bx = r.left + r.width / 2;
             var by = r.top + r.height / 2;
             var angle = Math.atan2(by - e.clientY, bx - e.clientX) * (180 / Math.PI);
@@ -531,20 +554,6 @@
         }
     });
 
-    // Hide the gold pointer arrow whenever the mouse is over ANY interactive
-    // thing in the contact section (Email Michael CTA, click-to-copy email,
-    // phone link, etc.) so it doesn't compete with the system pointer there.
-    var interactives = contact.querySelectorAll('a, button');
-    interactives.forEach(function(el) {
-        el.addEventListener('mouseenter', function() {
-            overBtn = true;
-            cursor.style.opacity = '0';
-        });
-        el.addEventListener('mouseleave', function() {
-            overBtn = false;
-            cursor.style.opacity = '1';
-        });
-    });
 })();
 </script>
 

@@ -888,7 +888,7 @@ section:focus, section:focus-visible { outline: none; }
 
 /* ─── CONTACT ─── */
 .contact {
-    background: var(--bg);
+    background: var(--cream);
     padding: 140px 56px;
     cursor: none;
 }
@@ -913,19 +913,16 @@ section:focus, section:focus-visible { outline: none; }
     font-family: -apple-system, BlinkMacSystemFont, "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", system-ui, sans-serif;
     font-variant-emoji: text;
 }
-.contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: center;
-}
+.contact .container { max-width: 720px; text-align: center; }
+.contact .eyebrow,
+.contact .section-h { text-align: center; }
 .contact-lead {
     font-family: var(--serif);
-    font-size: 21px;
+    font-size: 19px;
     color: var(--ink-soft);
     line-height: 1.55;
-    margin: 0 0 32px;
-    max-width: 460px;
+    max-width: 560px;
+    margin: 0 auto 48px;
 }
 .btn-dark {
     display: inline-block;
@@ -942,72 +939,148 @@ section:focus, section:focus-visible { outline: none; }
 }
 .btn-dark:hover { background: var(--green); transform: translateY(-1px); }
 
-.contact-block {
-    display: flex; flex-direction: column;
-    gap: 28px;
-    font-family: var(--sans);
+/* Vertical-stack contact card (gold-rule rows + dark CTA bar) */
+.vs-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    text-align: left;
+    cursor: default;
+    /* Layered depth: inset highlight → hairline → close contact → ambient */
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      0 1px 0 rgba(20, 30, 22, 0.05),
+      0 2px 4px rgba(20, 30, 22, 0.06),
+      0 8px 16px -4px rgba(20, 30, 22, 0.08),
+      0 18px 36px -10px rgba(20, 30, 22, 0.14),
+      0 40px 80px -30px rgba(20, 30, 22, 0.28);
 }
-.ci-label {
-    font-size: 12px;
-    letter-spacing: 2.5px;
+.contact .vs-card a,
+.contact .vs-card button { cursor: pointer; }
+.vs-row {
+    background: var(--paper);
+    padding: 28px 36px;
+    display: grid;
+    grid-template-columns: 28px 110px 1fr auto;
+    gap: 18px;
+    align-items: center;
+    border-top: 1px solid var(--rule);
+    position: relative;
+}
+.vs-row:first-child { border-top: 0; }
+.vs-row::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 36px; right: 36px; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold) 70%, transparent 100%);
+    opacity: 0.3;
+}
+.vs-row:first-child::before { display: none; }
+.vs-icon {
+    width: 28px; height: 28px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(200, 169, 110, 0.15);
+    border-radius: 50%;
+    font-size: 14px;
+    color: var(--gold-dk);
+}
+.vs-key {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--ink-mute);
-    margin-bottom: 6px;
     font-weight: 600;
 }
-.ci-val {
-    font-weight: 600;
+.vs-val {
+    font-family: var(--serif);
+    font-size: 21px;
     color: var(--ink);
-    letter-spacing: -0.2px;
+    line-height: 1.3;
     word-break: break-word;
 }
-.ci-big { font-size: clamp(22px, 2.5vw, 30px); }
-.ci-area { font-size: 19px; font-weight: 500; }
-.ci-val a { color: var(--ink); transition: color 0.15s ease; }
-.ci-val a:hover { color: var(--gold-dk); }
-
-/* Email becomes a click-to-copy button. Looks identical to the rest of the
-   contact text by default; reveals a subtle "Click to copy" hint on hover. */
-.copy-email {
-    background: transparent;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    color: var(--ink);
+.vs-val a, .vs-val button {
+    color: var(--green-dk); text-decoration: none;
+    background: none; border: 0; padding: 0;
     font: inherit;
-    letter-spacing: inherit;
+    border-bottom: 1px solid rgba(46, 95, 63, 0.3);
     text-align: left;
-    cursor: pointer;
-    position: relative;
-    display: inline-block;
-    transition: color 0.15s ease;
+    transition: color 0.15s, border-color 0.15s;
 }
-.copy-email:hover { color: var(--gold-dk); }
-.copy-email .copy-hint {
-    position: absolute;
-    left: 0;
-    bottom: -14px;
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
+.vs-val a:hover, .vs-val button:hover {
     color: var(--gold-dk);
-    opacity: 0.85;
-    pointer-events: none;
-    transition: opacity 0.15s ease, color 0.15s ease;
-    white-space: nowrap;
+    border-color: rgba(167, 137, 71, 0.5);
 }
-.copy-email:hover .copy-hint,
-.copy-email:focus-visible .copy-hint {
-    opacity: 1;
+.vs-action {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold-lt);
+    text-decoration: none;
+    background: var(--green-deepest);
+    border: 1px solid var(--green-deepest);
+    padding: 11px 20px;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow:
+      0 2px 0 rgba(0, 0, 0, 0.06),
+      0 6px 14px -4px rgba(15, 35, 24, 0.3);
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.vs-action:hover {
+    transform: translateY(-1px);
+    background: var(--ink);
+    box-shadow:
+      0 3px 0 rgba(0, 0, 0, 0.08),
+      0 10px 22px -6px rgba(15, 35, 24, 0.4);
+}
+.vs-action .arr {
+    font-size: 13px;
+    line-height: 1;
+    color: var(--gold);
+    transition: transform 0.15s;
+}
+.vs-action:hover .arr { transform: translateX(2px); }
+
+/* Dark green CTA bar at the bottom of the card */
+.vs-foot {
+    background: var(--green-deepest);
+    color: var(--gold-lt);
+    padding: 24px 36px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    box-shadow: inset 0 0 0 1px rgba(232, 212, 163, 0.18);
+}
+.vs-foot-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(232, 212, 163, 0.85);
+}
+.vs-foot-cta {
+    background: var(--gold);
     color: var(--green-deepest);
+    padding: 12px 22px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 0.15s, box-shadow 0.15s;
 }
-.copy-email.is-copied { color: var(--green); }
-.copy-email.is-copied .copy-hint {
-    opacity: 1;
-    color: var(--green);
+.vs-foot-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(200, 169, 110, 0.3);
 }
+
+/* .copy-email is a JS hook only — visual styling comes from the container
+   (.vs-val a/button for the inline email value, .vs-action for the CTA pill). */
 
 /* ─── FOOTER ─── */
 footer {
@@ -1039,7 +1112,18 @@ footer {
     .service-body { min-height: 0; padding: 26px 26px 28px; }
     .work-item { grid-template-columns: 1fr; gap: 6px; }
     .work-tag { margin-top: 4px; }
-    .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+    .vs-row {
+        grid-template-columns: 28px 1fr;
+        grid-template-rows: auto auto auto;
+        column-gap: 14px; row-gap: 6px;
+        padding: 22px 24px;
+    }
+    .vs-icon { grid-row: 1 / span 2; align-self: start; margin-top: 4px; }
+    .vs-key { grid-column: 2; }
+    .vs-val { grid-column: 2; font-size: 18px; }
+    .vs-action { grid-column: 1 / -1; justify-self: start; margin-top: 6px; }
+    .vs-row::before { left: 24px; right: 24px; }
+    .vs-foot { padding: 20px 24px; }
     .divider { height: 360px; }
     .credit-hero { bottom: 88px; }
 }

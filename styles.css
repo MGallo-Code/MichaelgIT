@@ -453,9 +453,9 @@ section:focus, section:focus-visible { outline: none; }
     font-family: var(--mono);
     font-size: 12px;
     color: var(--ink-soft);
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: center;
 }
-.mw-lock { color: var(--green); font-size: 10px; }
+.mw-lock { color: var(--green); font-size: 10px; margin-right: 8px; }
 .mw-proto { opacity: 0.85; }
 
 .mw-body {

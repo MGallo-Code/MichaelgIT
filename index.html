@@ -12,35 +12,39 @@
 </head>
 <body>
 
+<a class="skip-link" href="#about">Skip to content</a>
+
+<main id="main">
+
 <!-- HERO -->
-<section class="hero">
+<section class="hero" aria-label="Tech help you can trust">
     <img class="hero-img" src="pink-lake.jpg" alt="">
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
-        <div class="hero-eyebrow"><span class="eyebrow-rule"></span>IT Services / Northern Virginia</div>
+        <div class="hero-eyebrow"><span class="eyebrow-rule" aria-hidden="true"></span>IT Services / Northern Virginia</div>
         <h1 class="hero-title">Tech help<br>you can trust.</h1>
         <p class="hero-tag">Patient, expert support for computers, networks, and small business websites. In your home, your office, or remote.</p>
         <div class="hero-loc">Arlington · Falls Church · Northern Virginia</div>
         <a href="#contact" class="btn-gold">Get In Touch</a>
     </div>
 
-    <div class="credit credit-hero">© M.GALLO · MN '25</div>
+    <div class="credit credit-hero" aria-hidden="true">© M.GALLO · MN '25</div>
 
     <!-- StickyNav: lives at the bottom of the hero by default, pins to top when scrolled past -->
-    <nav class="nav" id="navBar" data-pinned="false">
-        <a href="#" class="wordmark">MichaelG<span class="wm-it">IT</span><span class="wm-com">.com</span></a>
+    <nav class="nav" id="navBar" data-pinned="false" aria-label="Primary">
+        <a href="/" class="wordmark" aria-label="MichaelGIT.com home">MichaelG<span class="wm-it">IT</span><span class="wm-com">.com</span></a>
         <div class="nav-right">
             <a href="#about" class="nav-link">About</a>
             <a href="#services" class="nav-link">Services</a>
             <a href="#work" class="nav-link">Past Work</a>
-            <a href="#contact" class="nav-cta">Contact ↗</a>
+            <a href="#contact" class="nav-cta">Contact <span aria-hidden="true">↗</span></a>
         </div>
     </nav>
 </section>
 
 <!-- ABOUT (Mac window wrapping profile + body) -->
-<section class="about" id="about">
+<section class="about" id="about" tabindex="-1" aria-label="About Michael">
     <div class="container">
         <div class="eyebrow">About</div>
         <h2 class="about-h">Hi, I'm <em>Michael.</em></h2>
@@ -94,7 +98,7 @@
 </section>
 
 <!-- DIVIDER -->
-<section class="divider">
+<section class="divider" aria-hidden="true">
     <img src="ivy-courtyard.jpg" alt="">
     <div class="divider-overlay"></div>
     <p class="divider-quote">"I want you to feel comfortable asking the question, no matter how small it sounds."</p>
@@ -102,7 +106,7 @@
 </section>
 
 <!-- SERVICES (3 Mac-window cards) -->
-<section class="services" id="services">
+<section class="services" id="services" aria-label="What I help with">
     <div class="container">
         <div class="eyebrow">What I Help With</div>
         <h2 class="section-h">The everyday stuff, and then some.</h2>
@@ -172,7 +176,7 @@
 </section>
 
 <!-- PAST WORK -->
-<section class="past-work" id="work">
+<section class="past-work" id="work" aria-label="Past work">
     <div class="container">
         <div class="eyebrow eyebrow-light">Past Work</div>
         <h2 class="section-h light">A few recent jobs.</h2>
@@ -206,19 +210,24 @@
 </section>
 
 <!-- CONTACT -->
-<section class="contact" id="contact">
+<section class="contact" id="contact" aria-label="Contact">
     <div class="container">
         <div class="contact-grid">
             <div>
                 <div class="eyebrow">Get In Touch</div>
                 <h2 class="section-h">Let's sort it out.</h2>
                 <p class="contact-lead">Send a quick note describing what's going on. I usually reply same day, and the first conversation is always free.</p>
-                <a href="mailto:michael@gallocoding.com" class="btn-dark email-link">Email Michael →</a>
+                <a href="mailto:michael@gallocoding.com" class="btn-dark email-link">Email Michael <span aria-hidden="true">→</span></a>
             </div>
             <div class="contact-block">
                 <div class="contact-item">
                     <div class="ci-label">Email</div>
-                    <div class="ci-val ci-big"><a href="mailto:michael@gallocoding.com">michael@gallocoding.com</a></div>
+                    <div class="ci-val ci-big">
+                        <button type="button" class="copy-email" data-email="michael@gallocoding.com" aria-label="Copy email address to clipboard">
+                            michael@gallocoding.com
+                            <span class="copy-hint" aria-hidden="true">Click to copy</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="contact-item">
                     <div class="ci-label">Phone</div>
@@ -232,6 +241,8 @@
         </div>
     </div>
 </section>
+
+</main>
 
 <footer>
     © 2026 Michael Gallo / michaelgit.com / Arlington, VA
@@ -260,6 +271,43 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     update();
+})();
+
+// Click-to-copy email button (the long display version in the contact items).
+// The dark "Email Michael →" CTA on the left still opens the mail client.
+(function() {
+    var btn = document.querySelector('.copy-email');
+    if (!btn) return;
+    var hint = btn.querySelector('.copy-hint');
+    var defaultText = hint ? hint.textContent : 'Click to copy';
+    btn.addEventListener('click', function() {
+        var email = btn.dataset.email || btn.textContent.trim();
+        var done = function() {
+            if (hint) hint.textContent = 'Copied!';
+            btn.classList.add('is-copied');
+            setTimeout(function() {
+                btn.classList.remove('is-copied');
+                if (hint) hint.textContent = defaultText;
+            }, 1800);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(email).then(done).catch(function() {
+                // Fallback: select the text so the user can Cmd+C
+                var range = document.createRange();
+                range.selectNodeContents(btn);
+                var sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+            });
+        } else {
+            // Old-school fallback: select text
+            var range = document.createRange();
+            range.selectNodeContents(btn);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+        }
+    });
 })();
 
 // Lock the services grid height once the page has laid out, so the dock
@@ -297,10 +345,12 @@
     var apps = Array.prototype.slice.call(document.querySelectorAll('.dock-app'));
     if (!windows.length || windows.length !== apps.length) return;
 
-    var MIN_MS = 500;
-    var CLOSE_MS = 180;
-    var OPEN_MS = 420;
-    var FLIP_MS = 420;
+    var REDUCED_MOTION = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var MIN_MS = REDUCED_MOTION ? 1 : 500;
+    var CLOSE_MS = REDUCED_MOTION ? 1 : 180;
+    var OPEN_MS = REDUCED_MOTION ? 1 : 420;
+    var FLIP_MS = REDUCED_MOTION ? 0 : 420;
     var FLIP_EASE = 'cubic-bezier(0.2, 0.85, 0.35, 1)';
 
     function setMinimizeTarget(win, app) {
@@ -440,7 +490,10 @@
 
     var cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
-    cursor.textContent = '➜';
+    // U+FE0E (Variation Selector-15) tells the browser to render the glyph as
+    // text, not as an emoji. Without it, Safari sometimes upgrades ➜ to a
+    // chunky color-emoji version.
+    cursor.textContent = '➜︎';
     document.body.appendChild(cursor);
 
     var inContact = false, overBtn = false;
@@ -461,17 +514,24 @@
             var bx = r.left + r.width / 2;
             var by = r.top + r.height / 2;
             var angle = Math.atan2(by - e.clientY, bx - e.clientX) * (180 / Math.PI);
-            cursor.style.transform = 'translate(-50%, -50%) rotate(' + angle + 'deg)';
+            // scaleX after rotate stretches along the arrow's pointing axis.
+            cursor.style.transform = 'translate(-50%, -50%) rotate(' + angle + 'deg) scaleX(1.15)';
         }
     });
 
-    emailBtn.addEventListener('mouseenter', function() {
-        overBtn = true;
-        cursor.style.opacity = '0';
-    });
-    emailBtn.addEventListener('mouseleave', function() {
-        overBtn = false;
-        cursor.style.opacity = '1';
+    // Hide the gold pointer arrow whenever the mouse is over ANY interactive
+    // thing in the contact section (Email Michael CTA, click-to-copy email,
+    // phone link, etc.) so it doesn't compete with the system pointer there.
+    var interactives = contact.querySelectorAll('a, button');
+    interactives.forEach(function(el) {
+        el.addEventListener('mouseenter', function() {
+            overBtn = true;
+            cursor.style.opacity = '0';
+        });
+        el.addEventListener('mouseleave', function() {
+            overBtn = false;
+            cursor.style.opacity = '1';
+        });
     });
 })();
 </script>

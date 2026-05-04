@@ -35,6 +35,39 @@ body {
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 
+/* Skip link — visually hidden until focused, then drops down with a gold tab */
+.skip-link {
+    position: absolute;
+    top: -56px;
+    left: 12px;
+    z-index: 250;
+    background: var(--gold);
+    color: var(--green-deepest);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    padding: 11px 18px;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+    transition: top 0.18s ease;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+    top: 0;
+    outline: 2px solid var(--green-deepest);
+    outline-offset: 2px;
+}
+:focus-visible {
+    /* Browser default focus ring is fine, but make it consistent on dark sections */
+    outline-color: var(--gold-lt);
+    outline-offset: 3px;
+}
+/* Sections / main get programmatic focus from the skip link — no outline */
+main:focus, main:focus-visible,
+section:focus, section:focus-visible { outline: none; }
+
 /* ─── HERO ─── */
 .hero {
     position: relative;
@@ -682,15 +715,21 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .mac-window.is-closing, .mac-window.is-opening { animation-duration: 0.2s; }
-    .mac-window.is-closing {
-        animation-name: simpleHide;
+    /* Window minimize/close/open: instant cross-fade instead of warp */
+    .mac-window.is-minimizing,
+    .mac-window.is-opening,
+    .mac-window.is-closing-fast {
+        animation-duration: 0.001s !important;
+        animation-timing-function: linear !important;
     }
-    .mac-window.is-opening {
-        animation-name: simpleShow;
-    }
-    @keyframes simpleHide { to { opacity: 0; transform: scale(0.95); } }
-    @keyframes simpleShow { from { opacity: 0; transform: scale(0.95); } }
+    /* Disable hover-lift micro-animations */
+    .dock-app:hover,
+    .dock-app:active,
+    .about-photo-wrap:hover { transform: none; }
+    .about-photo-wrap:hover .about-photo,
+    .about-photo { box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 0 12px 28px rgba(15, 35, 25, 0.18), inset 0 0 0 1px rgba(0, 0, 0, 0.06); }
+    /* Smooth scroll → instant */
+    html { scroll-behavior: auto; }
 }
 
 /* Dock — sits below the service windows */
@@ -855,13 +894,17 @@ a { color: inherit; text-decoration: none; }
     position: fixed;
     pointer-events: none;
     z-index: 200;
-    font-size: 44px;
+    font-size: 54px;
     line-height: 1;
     color: var(--gold);
     opacity: 0;
     transition: opacity 0.15s ease;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
     will-change: transform, left, top, opacity;
+    /* Bypass Montserrat (which lacks the ➜ dingbat) so Safari/Chrome agree.
+       Explicit symbol-bearing system fonts + text-presentation glyph. */
+    font-family: -apple-system, BlinkMacSystemFont, "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", system-ui, sans-serif;
+    font-variant-emoji: text;
 }
 .contact-grid {
     display: grid;
@@ -915,6 +958,49 @@ a { color: inherit; text-decoration: none; }
 .ci-area { font-size: 19px; font-weight: 500; }
 .ci-val a { color: var(--ink); transition: color 0.15s ease; }
 .ci-val a:hover { color: var(--gold-dk); }
+
+/* Email becomes a click-to-copy button. Looks identical to the rest of the
+   contact text by default; reveals a subtle "Click to copy" hint on hover. */
+.copy-email {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    color: var(--ink);
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    transition: color 0.15s ease;
+}
+.copy-email:hover { color: var(--gold-dk); }
+.copy-email .copy-hint {
+    position: absolute;
+    left: 0;
+    bottom: -14px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--gold-dk);
+    opacity: 0.85;
+    pointer-events: none;
+    transition: opacity 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+}
+.copy-email:hover .copy-hint,
+.copy-email:focus-visible .copy-hint {
+    opacity: 1;
+    color: var(--green-deepest);
+}
+.copy-email.is-copied { color: var(--green); }
+.copy-email.is-copied .copy-hint {
+    opacity: 1;
+    color: var(--green);
+}
 
 /* ─── FOOTER ─── */
 footer {

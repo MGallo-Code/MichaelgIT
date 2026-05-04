@@ -20,7 +20,7 @@
 <section class="hero" aria-label="Tech help you can trust">
     <picture>
         <source srcset="pink-lake.webp" type="image/webp">
-        <img class="hero-img" src="pink-lake.jpg" alt="" fetchpriority="high">
+        <img class="hero-img" src="pink-lake.jpg" alt="" fetchpriority="high" decoding="async">
     </picture>
     <div class="hero-overlay"></div>
 
@@ -72,7 +72,7 @@
                     <div class="about-photo-wrap">
                         <picture>
                             <source srcset="profile.webp" type="image/webp">
-                            <img class="about-photo" src="profile.jpg" alt="Michael Gallo portrait" loading="lazy" decoding="async">
+                            <img class="about-photo" src="profile.jpg" alt="Michael Gallo portrait" width="800" height="1000" loading="lazy" decoding="async">
                         </picture>
                         <div class="about-photo-credit">© M. GALLO · WASHINGTON SQ., NYC '25</div>
                     </div>
@@ -103,14 +103,14 @@
 </section>
 
 <!-- DIVIDER -->
-<section class="divider" aria-hidden="true">
+<section class="divider" aria-label="Quote">
     <picture>
         <source srcset="ivy-courtyard.webp" type="image/webp">
         <img src="ivy-courtyard.jpg" alt="" loading="lazy" decoding="async">
     </picture>
-    <div class="divider-overlay"></div>
+    <div class="divider-overlay" aria-hidden="true"></div>
     <p class="divider-quote">"I want you to feel comfortable asking the question, no matter how small it sounds."</p>
-    <div class="credit credit-light">© M.GALLO · CHICAGO '25</div>
+    <div class="credit credit-light" aria-hidden="true">© M.GALLO · CHICAGO '25</div>
 </section>
 
 <!-- SERVICES (3 Mac-window cards) -->
@@ -228,8 +228,8 @@
             <div class="vs-row">
                 <span class="vs-icon" aria-hidden="true">✉</span>
                 <span class="vs-key">Email</span>
-                <span class="vs-val"><button type="button" class="copy-email" data-email="michael@gallocoding.com" aria-label="Copy email address to clipboard">michael@gallocoding.com</button></span>
-                <button type="button" class="vs-action copy-email" data-email="michael@gallocoding.com" aria-label="Copy email address to clipboard">Copy <span class="arr" aria-hidden="true">⧉</span></button>
+                <span class="vs-val"><button type="button" class="copy-email" data-email="michael@gallocoding.com">michael@gallocoding.com</button></span>
+                <button type="button" class="vs-action copy-email" data-email="michael@gallocoding.com">Copy <span class="arr" aria-hidden="true">⧉</span></button>
             </div>
             <div class="vs-row">
                 <span class="vs-icon" aria-hidden="true">☎</span>

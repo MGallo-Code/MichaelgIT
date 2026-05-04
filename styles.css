@@ -291,9 +291,10 @@ section:focus, section:focus-visible { outline: none; }
     overflow: hidden;
     box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(0, 0, 0, 0.08);
-    /* Used by the minimize/maximize warp animations below */
+    /* Origin used by the minimize/maximize warp animations below.
+       will-change is scoped to the animation classes so idle windows
+       (like the static About window) don't hold a permanent GPU layer. */
     transform-origin: var(--mox, 50%) bottom;
-    will-change: transform, opacity, clip-path;
 }
 
 /* Windows-style pointer over the Windows-themed service window only.
@@ -643,8 +644,16 @@ section:focus, section:focus-visible { outline: none; }
     margin: 0;
 }
 
-/* Window minimize/restore — warps toward (and back from) the dock icon */
+/* Window minimize/restore — warps toward (and back from) the dock icon.
+   will-change is applied here only (not on the base .mac-window) so the
+   GPU layer is created right before the animation fires and released
+   when the class is removed. */
 .mac-window.is-hidden { display: none; }
+.mac-window.is-minimizing,
+.mac-window.is-opening,
+.mac-window.is-closing-fast {
+    will-change: transform, opacity, clip-path;
+}
 .mac-window.is-minimizing {
     animation: minimizeToDock 0.5s cubic-bezier(0.4, 0, 0.7, 1) forwards;
     pointer-events: none;

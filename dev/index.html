@@ -58,12 +58,12 @@
                 <h1>Hey, I'm Michael!</h1>
 
                 <div class="term-card" aria-label="Animated terminal showing about info">
-                    <div class="term-titlebar">
+                    <div class="term-titlebar" aria-hidden="true">
                         <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
                         <span class="term-title">michael@dev ~ /home/michael</span>
                     </div>
                     <div class="term-body">
-                        <span class="term-line tw-prompt-1">
+                        <span class="term-line tw-prompt-1" aria-hidden="true">
                             <span class="term-prompt-user">michael@dev</span><span class="term-prompt-host">:</span><span class="term-prompt-path">~</span><span class="term-prompt-host">$</span>
                             <span class="tw-cmd-wrap"><span class="tw-cmd">cat ./about.txt</span></span>
                         </span>
@@ -76,7 +76,7 @@
                         <span class="tw-out tw-out-6"></span>
                         <span class="tw-out tw-out-7"><span class="tw-loc">northern virginia</span>. <span class="tw-status">open to work.</span></span>
 
-                        <span class="term-line tw-prompt-2">
+                        <span class="term-line tw-prompt-2" aria-hidden="true">
                             <span class="term-prompt-user">michael@dev</span><span class="term-prompt-host">:</span><span class="term-prompt-path">~</span><span class="term-prompt-host">$</span>
                             <span class="tw-cursor"></span>
                         </span>
@@ -130,7 +130,7 @@
         <section id="stack" class="stack-strip" aria-label="Tech stack and link to GitHub">
             <h2 class="stack-strip-heading">My (full) stack</h2>
             <p class="stack-strip-label">A few of the things I reach for, give or take.</p>
-            <div class="phone" role="img" aria-label="Phone home screen displaying tech stack as apps">
+            <div class="phone">
                 <div class="phone-screen">
                     <div class="phone-bg"></div>
                     <div class="phone-overlay"></div>
@@ -143,7 +143,7 @@
                         </span>
                     </div>
                     <div class="phone-apps">
-                        <img src="https://skillicons.dev/icons?i=ts,go,rust,py,nextjs,react,postgres,supabase,aws,docker,neovim,linux&perline=6" alt="TypeScript, Go, Rust, Python, Next.js, React, Postgres, Supabase, AWS, Docker, Neovim, Linux as phone apps" loading="lazy" />
+                        <img src="https://skillicons.dev/icons?i=ts,go,rust,py,nextjs,react,postgres,supabase,aws,docker,neovim,linux&perline=6" alt="TypeScript, Go, Rust, Python, Next.js, React, Postgres, Supabase, AWS, Docker, Neovim, Linux as phone apps" width="460" height="140" loading="lazy" />
                     </div>
                     <div class="phone-home"></div>
                 </div>
@@ -166,7 +166,7 @@
                         <li>
                             <svg class="biz-link-icon stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                             <a href="mailto:michaelgallo.va@gmail.com">michaelgallo.va@gmail.com</a>
-                            <button class="biz-copy-btn copy-btn" data-copy="michaelgallo.va@gmail.com" type="button" aria-label="Copy email address to clipboard" title="Copy email">
+                            <button class="biz-copy-btn copy-btn" data-copy="michaelgallo.va@gmail.com" type="button" title="Copy email">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                                 <span class="copy-text">Copy email</span>
                             </button>
@@ -209,14 +209,12 @@
                 await navigator.clipboard.writeText(text);
                 if (label) label.textContent = 'Copied!';
                 btn.classList.add('copied');
-                btn.setAttribute('aria-label', 'Email copied to clipboard');
             } catch (err) {
                 if (label) label.textContent = 'Press Cmd+C';
             }
             setTimeout(() => {
                 if (label) label.textContent = original;
                 btn.classList.remove('copied');
-                btn.setAttribute('aria-label', 'Copy email address to clipboard');
             }, 1600);
         });
     });

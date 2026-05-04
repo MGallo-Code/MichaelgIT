@@ -53,11 +53,11 @@
         <h2 class="about-h">Hi, I'm <em>Michael!</em></h2>
 
         <div class="mac-window about-window">
-            <div class="mw-titlebar">
+            <div class="mw-titlebar" aria-hidden="true">
                 <span class="mw-dots"><span class="mw-dot dr"></span><span class="mw-dot dy"></span><span class="mw-dot dg"></span></span>
                 <span class="mw-title">About — michaelgit.com</span>
             </div>
-            <div class="mw-addr">
+            <div class="mw-addr" aria-hidden="true">
                 <span class="mw-arrows">
                     <span class="mw-arrow">‹</span>
                     <span class="mw-arrow disabled">›</span>
@@ -123,60 +123,60 @@
         <div class="services-grid">
             <!-- Windows -->
             <div class="mac-window win-window">
-                <div class="mw-titlebar">
+                <div class="mw-titlebar" aria-hidden="true">
                     <span class="mw-title">computers.md — Notepad</span>
                     <span class="mw-controls">
-                        <span class="ctrl minimize" aria-label="Minimize">&#x2013;</span>
-                        <span class="ctrl maximize" aria-label="Maximize">&#x25A1;</span>
-                        <span class="ctrl close" aria-label="Close">&#x2715;</span>
+                        <span class="ctrl minimize">&#x2013;</span>
+                        <span class="ctrl maximize">&#x25A1;</span>
+                        <span class="ctrl close">&#x2715;</span>
                     </span>
                 </div>
                 <div class="mw-body service-body">
-                    <div class="svc-num">01 / Computers</div>
+                    <div class="svc-num" aria-hidden="true">01 / Computers</div>
                     <h3 class="svc-h">Computers, top to bottom.</h3>
                     <p class="svc-p">Setting up a new laptop, transferring files from an old one, sorting out a slow machine, removing things that shouldn't be there, getting printers and monitors talking to each other.</p>
                 </div>
             </div>
             <!-- macOS -->
             <div class="mac-window">
-                <div class="mw-titlebar">
+                <div class="mw-titlebar" aria-hidden="true">
                     <span class="mw-dots"><span class="mw-dot dr"></span><span class="mw-dot dy"></span><span class="mw-dot dg"></span></span>
                     <span class="mw-title">~/networks.md</span>
                 </div>
                 <div class="mw-body service-body">
-                    <div class="svc-num">02 / Networks</div>
+                    <div class="svc-num" aria-hidden="true">02 / Networks</div>
                     <h3 class="svc-h">Wi-Fi and networks.</h3>
                     <p class="svc-p">Wi-Fi that drops in the back bedroom, routers that need replacing, mesh setups, password resets, smart home devices that won't connect, basic security cleanup.</p>
                 </div>
             </div>
             <!-- Linux / GNOME -->
             <div class="mac-window nix-window">
-                <div class="mw-titlebar">
+                <div class="mw-titlebar" aria-hidden="true">
                     <span class="mw-title">websites.md</span>
                     <span class="mw-controls-nix">
-                        <span class="mw-min" aria-label="Minimize">&#x2013;</span>
-                        <span class="mw-x" aria-label="Close">&#x2715;</span>
+                        <span class="mw-min">&#x2013;</span>
+                        <span class="mw-x">&#x2715;</span>
                     </span>
                 </div>
                 <div class="mw-body service-body">
-                    <div class="svc-num">03 / Websites</div>
+                    <div class="svc-num" aria-hidden="true">03 / Websites</div>
                     <h3 class="svc-h">Small business websites.</h3>
                     <p class="svc-p">A simple, professional site for your business or practice. Or a tune-up of one you already have. Built clean, hosted reliably, easy for you to update.</p>
                 </div>
             </div>
         </div>
 
-        <div class="dock" role="toolbar" aria-label="Reopen a closed window">
-            <button class="dock-app dock-win" type="button" aria-label="Reopen Computers">
-                <span class="dock-icon" aria-hidden="true">💻</span>
+        <div class="dock" aria-hidden="true">
+            <button class="dock-app dock-win" type="button" tabindex="-1">
+                <span class="dock-icon">💻</span>
                 <span class="dock-tip">computers.md</span>
             </button>
-            <button class="dock-app dock-mac" type="button" aria-label="Reopen Networks">
-                <span class="dock-icon" aria-hidden="true">📶</span>
+            <button class="dock-app dock-mac" type="button" tabindex="-1">
+                <span class="dock-icon">📶</span>
                 <span class="dock-tip">networks.md</span>
             </button>
-            <button class="dock-app dock-nix" type="button" aria-label="Reopen Websites">
-                <span class="dock-icon" aria-hidden="true">🌐</span>
+            <button class="dock-app dock-nix" type="button" tabindex="-1">
+                <span class="dock-icon">🌐</span>
                 <span class="dock-tip">websites.md</span>
             </button>
         </div>
@@ -247,7 +247,6 @@
                 <span class="vs-icon" aria-hidden="true">📍</span>
                 <span class="vs-key">Area</span>
                 <span class="vs-val">Arlington · Falls Church · N. Virginia</span>
-                <span></span>
             </div>
 
             <div class="vs-foot">
@@ -289,32 +288,22 @@
     update();
 })();
 
-// Click-to-copy: any .copy-email button (the email value in the row, AND the
-// dark "Copy" CTA pill). Both share data-email; clicking either copies and
-// briefly swaps the button's label to "Copied!" before reverting.
+// Click-to-copy: any .copy-email button (the email value cell AND the dark
+// "Copy" CTA pill). Both share data-email; clicking either copies and
+// briefly swaps the button's first text node to "Copied!" before reverting.
 document.querySelectorAll('.copy-email').forEach(function(btn) {
-    // Prefer an explicit .copy-hint span if the button has one; otherwise
-    // grab the first non-empty text node so bare-text buttons (like the
-    // value cell that just contains "michael@gallocoding.com") still get
-    // the feedback swap.
-    var hint = btn.querySelector('.copy-hint');
     var labelNode = null;
-    if (!hint) {
-        for (var i = 0; i < btn.childNodes.length; i++) {
-            var n = btn.childNodes[i];
-            if (n.nodeType === 3 && n.textContent.trim()) { labelNode = n; break; }
-        }
+    for (var i = 0; i < btn.childNodes.length; i++) {
+        var n = btn.childNodes[i];
+        if (n.nodeType === 3 && n.textContent.trim()) { labelNode = n; break; }
     }
-    var defaultText = hint ? hint.textContent
-                            : (labelNode ? labelNode.textContent : '');
+    var defaultText = labelNode ? labelNode.textContent : '';
     btn.addEventListener('click', function() {
         var email = btn.dataset.email || btn.textContent.trim();
         var done = function() {
-            if (hint) hint.textContent = 'Copied!';
-            else if (labelNode) labelNode.textContent = 'Copied! ';
+            if (labelNode) labelNode.textContent = 'Copied! ';
             setTimeout(function() {
-                if (hint) hint.textContent = defaultText;
-                else if (labelNode) labelNode.textContent = defaultText;
+                if (labelNode) labelNode.textContent = defaultText;
             }, 1800);
         };
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -517,6 +506,7 @@ document.querySelectorAll('.copy-email').forEach(function(btn) {
 
     var cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
+    cursor.setAttribute('aria-hidden', 'true');
     // U+FE0E (Variation Selector-15) keeps Safari from upgrading ➜ to a
     // color emoji — render as a text glyph so Chrome and Safari agree.
     cursor.textContent = '➜︎';
